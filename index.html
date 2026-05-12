@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FreezeFlow - Premium AC Washing and Maintenance Service. Book your AC service today!">
+    <title>FreezeFlow | Premium AC Service</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i data-lucide="snowflake"></i>
+                    FreezeFlow
+                </a>
+                <div class="nav-links">
+                    <!-- Simple navigation could go here -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Stay Cool, Live Better</h1>
+            <p>Reliable AC maintenance at your fingertips.</p>
+        </section>
+
+        <div class="app-grid">
+            <!-- Order Section -->
+            <section class="order-section">
+                <div class="card">
+                    <div class="card-title">
+                        <i data-lucide="calendar-plus"></i>
+                        New Service Booking
+                    </div>
+                    
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="acCount">Number of Units</label>
+                            <input type="number" id="acCount" min="1" value="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pkType">AC Capacity (PK)</label>
+                            <select id="pkType" required>
+                                <option value="0.5">1/2 PK</option>
+                                <option value="1">1 PK</option>
+                                <option value="1.5">1.5 PK</option>
+                                <option value="2">2 PK</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="serviceType">Service Type</label>
+                            <select id="serviceType" required>
+                                <option value="wash">Regular Wash (Rp 75k)</option>
+                                <option value="deep">Deep Cleaning (Rp 150k)</option>
+                                <option value="freon">Freon Refill (Rp 200k)</option>
+                            </select>
+                        </div>
+
+                        <div class="price-display">
+                            <div class="price-label">Estimated Total</div>
+                            <div id="totalPrice" class="price-value">Rp 0</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 1.5rem;">
+                            <i data-lucide="check-circle"></i>
+                            Confirm Booking
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section class="dashboard-section">
+                <div class="card">
+                    <div class="card-title">
+                        <i data-lucide="layout-dashboard"></i>
+                        Service History
+                    </div>
+                    
+                    <div id="historyList" class="list-container">
+                        <!-- Items injected by JavaScript -->
+                        <div class="empty-state">
+                            <i data-lucide="package-open"></i>
+                            <p>No bookings yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="success">
+        <i data-lucide="check-circle-2"></i>
+        <span id="toastMessage">Booking successful!</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
