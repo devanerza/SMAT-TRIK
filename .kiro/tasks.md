@@ -19,54 +19,54 @@ Modul inti yang mencakup seluruh alur pemesanan service AC, dashboard Admin, das
   - Buat file `styles/globals.css` dengan import Tailwind
   - _Requirements: 6.1, 13.1_
 
-- [ ] 2. Implementasi fungsi validasi (`lib/validators.js`)
-  - [ ] 2.1 Implementasi `validateWhatsappNumber(number)` — validasi format nomor WA Indonesia (`08`/`628`, 10–15 digit)
+- [x] 2. Implementasi fungsi validasi (`lib/validators.js`)
+  - [x] 2.1 Implementasi `validateWhatsappNumber(number)` — validasi format nomor WA Indonesia (`08`/`628`, 10–15 digit)
     - _Requirements: 3.4_
 
-  - [ ] 2.2 Implementasi `validateEmail(email)` — validasi format email sesuai RFC 5321
+  - [x] 2.2 Implementasi `validateEmail(email)` — validasi format email sesuai RFC 5321
     - _Requirements: 3.5_
 
-  - [ ] 2.3 Implementasi `validateOrderItem(item)` — validasi `serviceId`, `acCapacity` (enum), dan `unitCount` (integer ≥ 1)
+  - [x] 2.3 Implementasi `validateOrderItem(item)` — validasi `serviceId`, `acCapacity` (enum), dan `unitCount` (integer ≥ 1)
     - Nilai `acCapacity` valid: `0.5_pk`, `0.75_pk`, `1_pk`, `1.5_pk`, `2_pk`, `2.5_pk`
     - _Requirements: 3.2, 3.6_
 
-  - [ ] 2.4 Implementasi `validateCustomerInfo(customerInfo)` — validasi field wajib dan format
+  - [x] 2.4 Implementasi `validateCustomerInfo(customerInfo)` — validasi field wajib dan format
     - `custName`, `custPhone`, `custLocUrl` wajib diisi; `custEmail` opsional tapi divalidasi jika ada
     - Kembalikan `{ isValid, errors }`
     - _Requirements: 3.3, 3.4, 3.5_
 
-  - [ ]* 2.5 Tulis property test untuk `validateWhatsappNumber`
+  - [x]* 2.5 Tulis property test untuk `validateWhatsappNumber`
     - **Property 4: Validasi Format Nomor WhatsApp**
     - **Validates: Requirements 3.4**
 
-  - [ ]* 2.6 Tulis property test untuk `validateEmail`
+  - [x]* 2.6 Tulis property test untuk `validateEmail`
     - **Property 5: Validasi Format Email**
     - **Validates: Requirements 3.5**
 
-  - [ ]* 2.7 Tulis property test untuk `validateOrderItem`
+  - [x]* 2.7 Tulis property test untuk `validateOrderItem`
     - **Property 6: Validasi Unit Count Item**
     - **Validates: Requirements 3.6**
 
-  - [ ]* 2.8 Tulis property test untuk `validateCustomerInfo`
+  - [x]* 2.8 Tulis property test untuk `validateCustomerInfo`
     - **Property 3: Validasi Form Order Menolak Field Wajib yang Kosong**
     - **Validates: Requirements 3.3**
 
-- [ ] 3. Implementasi logika kuota harian (`lib/quotaChecker.js`)
-  - [ ] 3.1 Implementasi `calculateDailyUsedUnits(orders)` — hitung total unit dari semua order berstatus bukan `cancelled`
+- [x] 3. Implementasi logika kuota harian (`lib/quotaChecker.js`)
+  - [x] 3.1 Implementasi `calculateDailyUsedUnits(orders)` — hitung total unit dari semua order berstatus bukan `cancelled`
     - _Requirements: 4.1_
 
-  - [ ] 3.2 Implementasi `checkQuotaAvailability(usedUnits, newOrderUnits)` — kembalikan `{ allowed, remainingUnits }` berdasarkan batas 20 unit
+  - [x] 3.2 Implementasi `checkQuotaAvailability(usedUnits, newOrderUnits)` — kembalikan `{ allowed, remainingUnits }` berdasarkan batas 20 unit
     - _Requirements: 4.2, 4.3_
 
-  - [ ]* 3.3 Tulis property test untuk `calculateDailyUsedUnits`
+  - [x]* 3.3 Tulis property test untuk `calculateDailyUsedUnits`
     - **Property 7: Kalkulasi Kuota Harian Akurat**
     - **Validates: Requirements 4.1**
 
-  - [ ]* 3.4 Tulis property test untuk `checkQuotaAvailability`
+  - [x]* 3.4 Tulis property test untuk `checkQuotaAvailability`
     - **Property 8: Penerimaan Order Berdasarkan Kuota**
     - **Validates: Requirements 4.2, 4.3**
 
-  - [ ]* 3.5 Tulis unit test untuk skenario batas kuota
+  - [x]* 3.5 Tulis unit test untuk skenario batas kuota
     - Skenario: tepat 20 unit (diterima), 21 unit (ditolak), 0 unit (diterima)
     - _Requirements: 4.2, 4.3_
 
