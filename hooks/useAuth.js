@@ -37,13 +37,19 @@ export function useAuth() {
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchRole = useCallback(async (userId) => {
-    const { data } = await supabase
-      .from('user_details')
-      .select('role')
-      .eq('id', userId)
-      .single();
-    return data?.role || 'customer';
+  const fetchRole = useCallback(async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session?.access_token) return 'customer';
+      const res = await fetch('/api/auth/me', {
+        headers: { Authorization: `Bearer ${session.access_token}` },
+      });
+      if (!res.ok) return 'customer';
+      const data = await res.json();
+      return data.user?.role || 'customer';
+    } catch {
+      return 'customer';
+    }
   }, []);
 
   useEffect(() => {
@@ -66,7 +72,7 @@ export function useAuth() {
       }
 
       setStoredSession();
-      const userRole = await fetchRole(session.user.id);
+      const userRole = await fetchRole();
       if (mounted) {
         setUser(session.user);
         setRole(userRole);
@@ -76,34 +82,13 @@ export function useAuth() {
 
     init();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === 'SIGNED_IN' && session) {
-          setStoredSession();
-          const userRole = await fetchRole(session.user.id);
-          if (mounted) {
-            setUser(session.user);
-            setRole(userRole);
-          }
-        } else if (event === 'SIGNED_OUT') {
-          clearStoredSession();
-          if (mounted) {
-            setUser(null);
-            setRole(null);
-          }
-        }
-        if (mounted) setLoading(false);
-      }
-    );
-
     return () => {
       mounted = false;
-      subscription?.unsubscribe();
     };
   }, [fetchRole]);
 
   const signIn = useCallback(async (email, password) => {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -112,12 +97,13 @@ export function useAuth() {
       return { error: 'Email atau password salah' };
     }
 
-    if (data.session) {
-      setStoredSession();
-      const userRole = await fetchRole(data.session.user.id);
-      setUser(data.session.user);
-      setRole(userRole);
-    }
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return { error: null };
+
+    setStoredSession();
+    const userRole = await fetchRole();
+    setUser(session.user);
+    setRole(userRole);
 
     return { error: null };
   }, [fetchRole]);

@@ -5,7 +5,7 @@ import { calculateDailyUsedUnits, checkQuotaAvailability } from '../../../lib/qu
 import { buildWaLink } from '../../../lib/waLink';
 
 const MAX_UNITS = 20;
-const ADMIN_PHONE = process.env.ADMIN_PHONE || '';
+const ADMIN_PHONE = process.env.ADMIN_PHONE || '081944104536';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../hooks/useAuth';
 
 export default function LoginPage() {
-  const { user, role, loading, signIn, signOut } = useAuth();
+  const { user, role, loading, signIn } = useAuth();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,10 +23,10 @@ export default function LoginPage() {
     setSubmitting(true);
 
     const result = await signIn(email, password);
-    setSubmitting(false);
 
     if (result.error) {
       setError(result.error);
+      setSubmitting(false);
     }
   }
 
