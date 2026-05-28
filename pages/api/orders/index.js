@@ -5,16 +5,25 @@ import { calculateDailyUsedUnits, checkQuotaAvailability } from '../../../lib/qu
 import { buildWaLink } from '../../../lib/waLink';
 
 const MAX_UNITS = 20;
-const ADMIN_PHONE = process.env.ADMIN_PHONE || '081944104536';
+const ADMIN_PHONE = process.env.ADMIN_PHONE || '6281944104536';
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    return handleGetOrders(req, res);
+  try {
+    if (req.method === 'GET') {
+      return await handleGetOrders(req, res);
+    }
+    if (req.method === 'POST') {
+      return await handleCreateOrder(req, res);
+    }
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (err) {
+    console.error('Unhandled error in /api/orders:', err);
+    return res.status(500).json({
+      error: 'Internal server error',
+      detail: err instanceof Error ? err.message : String(err),
+      stack: err instanceof Error ? err.stack : undefined,
+    });
   }
-  if (req.method === 'POST') {
-    return handleCreateOrder(req, res);
-  }
-  return res.status(405).json({ error: 'Method not allowed' });
 }
 
 async function handleGetOrders(req, res) {

@@ -4,12 +4,12 @@ import { useQuota } from '../../hooks/useQuota';
 
 const capacityOptions = [
   { value: '', label: 'Pilih Kapasitas' },
-  { value: '0.5_pk', label: '0.5 PK' },
-  { value: '0.75_pk', label: '0.75 PK' },
-  { value: '1_pk', label: '1 PK' },
-  { value: '1.5_pk', label: '1.5 PK' },
-  { value: '2_pk', label: '2 PK' },
-  { value: '2.5_pk', label: '2.5 PK' },
+  { value: '0.5 PK', label: '0.5 PK' },
+  { value: '0.75 PK', label: '0.75 PK' },
+  { value: '1 PK', label: '1 PK' },
+  { value: '1.5 PK', label: '1.5 PK' },
+  { value: '2 PK', label: '2 PK' },
+  { value: '2.5 PK', label: '2.5 PK' },
 ];
 
 const emptyItem = { serviceId: '', acCapacity: '', unitCount: 1 };
