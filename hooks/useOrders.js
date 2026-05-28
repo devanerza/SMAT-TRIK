@@ -17,7 +17,12 @@ export function useOrders({ status, startDate, endDate } = {}) {
       if (startDate) params.set('startDate', startDate);
       if (endDate) params.set('endDate', endDate);
 
-      const res = await fetch(`/api/orders?${params.toString()}`);
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const res = await fetch(`/api/orders?${params.toString()}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      
       if (!res.ok) {
         throw new Error('Gagal mengambil data pesanan');
       }
