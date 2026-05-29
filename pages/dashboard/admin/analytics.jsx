@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 import ProtectedRoute from '../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../components/shared/DashboardLayout';
 import OrderTrendChart from '../../../components/dashboard/analytics/OrderTrendChart';
@@ -28,10 +29,15 @@ function AdminAnalyticsPage() {
       if (dateStart) params.set('startDate', dateStart);
       if (dateEnd) params.set('endDate', dateEnd);
 
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
       const [ordersRes, servicesRes, teamsRes] = await Promise.all([
-        fetch(`/api/orders?${params.toString()}`),
-        fetch('/api/services'),
-        fetch('/api/users'),
+        fetch(`/api/orders?${params.toString()}`, { headers }),
+        fetch('/api/services', { headers }),
+        fetch('/api/users', { headers }),
       ]);
 
       if (ordersRes.ok) setOrders(await ordersRes.json());
