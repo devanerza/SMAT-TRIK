@@ -4,7 +4,6 @@ import { useAuth } from '../../hooks/useAuth';
 
 const adminNavItems = [
   { label: 'Dashboard', href: '/dashboard/admin', icon: '📊' },
-  { label: 'Pesanan', href: '/dashboard/admin/orders', icon: '📋' },
   { label: 'Analytics', href: '/dashboard/admin/analytics', icon: '📈' },
   {
     label: 'Pengaturan',
