@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
+import { supabase } from '@/lib/supabaseClient';
 import ProtectedRoute from '../../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../../components/shared/DashboardLayout';
 import OrderDetail from '../../../../components/dashboard/OrderDetail';
@@ -26,7 +27,14 @@ function AdminOrderDetailPage() {
   const fetchOrder = useCallback(async () => {
     if (!id) return;
     try {
-      const res = await fetch(`/api/orders/${id}`);
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const res = await fetch(`/api/orders/${id}`, {
+        headers: headers,
+      });
       if (!res.ok) {
         setError('Pesanan tidak ditemukan');
         return;
@@ -42,7 +50,14 @@ function AdminOrderDetailPage() {
 
   const fetchTeams = useCallback(async () => {
     try {
-      const res = await fetch('/api/users');
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const res = await fetch('/api/users', {
+        headers: headers,
+      });
       if (res.ok) {
         const data = await res.json();
         setTeams(data);
@@ -58,9 +73,13 @@ function AdminOrderDetailPage() {
 
   const handleAssignTeam = async (orderId, teamId) => {
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const res = await fetch(`/api/orders/${orderId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ action: 'assign_team', team_id: teamId }),
       });
       if (!res.ok) {
@@ -83,9 +102,13 @@ function AdminOrderDetailPage() {
 
   const handleStatusConfirm = async (orderId, newStatus) => {
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
       const res = await fetch(`/api/orders/${orderId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ action: 'update_status', status: newStatus }),
       });
       if (!res.ok) {
