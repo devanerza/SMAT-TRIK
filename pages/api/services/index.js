@@ -33,7 +33,7 @@ async function handleCreateService(req, res) {
     return res.status(403).json({ error: 'Hanya admin yang dapat menambahkan layanan' });
   }
 
-  const { name, description, price } = req.body;
+  const { name, price } = req.body;
   if (!name || typeof name !== 'string' || name.trim() === '') {
     return res.status(400).json({ error: 'Nama layanan wajib diisi' });
   }
@@ -42,7 +42,6 @@ async function handleCreateService(req, res) {
     .from('services')
     .insert({
       name: name.trim(),
-      description: description || null,
       price: typeof price === 'number' ? price : null,
     })
     .select()
