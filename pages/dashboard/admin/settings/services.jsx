@@ -7,7 +7,7 @@ function AdminServicesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
-  const [form, setForm] = useState({ name: '', description: '', price: '' });
+  const [form, setForm] = useState({ name: '', price: '' });
   const [showAddForm, setShowAddForm] = useState(false);
 
   const fetchServices = useCallback(async () => {
@@ -42,12 +42,11 @@ function AdminServicesPage() {
         headers,
         body: JSON.stringify({
           name: form.name.trim(),
-          description: form.description || null,
-          price: form.price ? parseFloat(form.price) : null,
+          price: form.price ? parseInt(form.price) : 0,
         }),
       });
       if (res.ok) {
-        setForm({ name: '', description: '', price: '' });
+        setForm({ name: '', price: '' });
         setShowAddForm(false);
         fetchServices();
       } else {
@@ -62,7 +61,6 @@ function AdminServicesPage() {
   const handleUpdate = async (id) => {
     const updates = {};
     if (form.name) updates.name = form.name.trim();
-    if (form.description !== undefined) updates.description = form.description || null;
     if (form.price !== undefined) updates.price = form.price ? parseFloat(form.price) : null;
 
     try {
@@ -78,7 +76,7 @@ function AdminServicesPage() {
       });
       if (res.ok) {
         setEditingId(null);
-        setForm({ name: '', description: '', price: '' });
+        setForm({ name: '', price: '' });
         fetchServices();
       } else {
         const data = await res.json();
@@ -93,8 +91,7 @@ function AdminServicesPage() {
     setEditingId(service.id);
     setForm({
       name: service.name || '',
-      description: service.description || '',
-      price: service.price != null ? String(service.price) : '',
+      price: service.price != null ? parseInt(service.price) : 0,
     });
     setShowAddForm(false);
   };
@@ -118,7 +115,7 @@ function AdminServicesPage() {
           onClick={() => {
             setShowAddForm(!showAddForm);
             setEditingId(null);
-            setForm({ name: '', description: '', price: '' });
+            setForm({ name: '', price: '' });
           }}
         >
           {showAddForm ? 'Batal' : 'Tambah Layanan'}
@@ -136,15 +133,6 @@ function AdminServicesPage() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
-              />
-            </div>
-            <div className="form-control">
-              <label className="label"><span className="label-text">Deskripsi</span></label>
-              <input
-                type="text"
-                className="input input-bordered input-sm"
-                value={form.description}
-                onChange={(e) => setForm({ ...form, description: e.target.value })}
               />
             </div>
             <div className="form-control">
@@ -170,7 +158,6 @@ function AdminServicesPage() {
           <thead>
             <tr>
               <th>Nama</th>
-              <th>Deskripsi</th>
               <th>Harga</th>
               <th>Aksi</th>
             </tr>
@@ -197,14 +184,6 @@ function AdminServicesPage() {
                       </td>
                       <td>
                         <input
-                          type="text"
-                          className="input input-bordered input-sm w-full"
-                          value={form.description}
-                          onChange={(e) => setForm({ ...form, description: e.target.value })}
-                        />
-                      </td>
-                      <td>
-                        <input
                           type="number"
                           className="input input-bordered input-sm w-full"
                           value={form.price}
@@ -222,7 +201,7 @@ function AdminServicesPage() {
                           className="btn btn-ghost btn-xs"
                           onClick={() => {
                             setEditingId(null);
-                            setForm({ name: '', description: '', price: '' });
+                            setForm({ name: '', price: '' });
                           }}
                         >
                           Batal
@@ -232,7 +211,6 @@ function AdminServicesPage() {
                   ) : (
                     <>
                       <td className="font-medium">{service.name}</td>
-                      <td className="text-sm text-base-content/70">{service.description || '-'}</td>
                       <td>
                         {service.price != null
                           ? `Rp ${service.price.toLocaleString('id-ID')}`
