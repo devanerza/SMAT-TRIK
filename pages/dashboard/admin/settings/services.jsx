@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 import ProtectedRoute from '../../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../../components/shared/DashboardLayout';
 
@@ -31,9 +32,14 @@ function AdminServicesPage() {
     if (!form.name.trim()) return;
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
       const res = await fetch('/api/services', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           name: form.name.trim(),
           description: form.description || null,
@@ -60,9 +66,14 @@ function AdminServicesPage() {
     if (form.price !== undefined) updates.price = form.price ? parseFloat(form.price) : null;
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
       const res = await fetch(`/api/services/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(updates),
       });
       if (res.ok) {
