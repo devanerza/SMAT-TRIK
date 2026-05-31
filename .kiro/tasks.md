@@ -328,12 +328,12 @@ Modul inti yang mencakup seluruh alur pemesanan service AC, dashboard Admin, das
 Fitur kalkulator perbandingan freon yang berdiri sendiri di halaman publik.
 
 - [ ] 18. Implementasi logika kalkulasi freon (`lib/freonCalculator.js`)
-  - [ ] 18.1 Implementasi fungsi `calculateFreonComparison(capacityPK, hoursPerDay, tariffPerKwh)`
-    - Gunakan konstanta: EER konvensional = 8.5, EER hemat = 11.0, 1 PK = 9.000 BTU/h, 30 hari/bulan
-    - Kembalikan `{ conventional: { monthlyKwh, monthlyCost }, efficient: { monthlyKwh, monthlyCost }, monthlySavings }`
+  - [ ] 18.1 Implementasi fungsi `hitungPenghematanAC(pk, jumlahUnit, tarifKwh, jamPerHari)`
+    - Tegangan: 220V; faktor arus konvensional: 4.0 A/PK; faktor arus smat-trik: 2.9 A/PK; 30 hari/bulan
+    - Kembalikan `{ dayaKonv, dayaSmat, biayaKonv, biayaSmat, hematNominal, hematPersen }`
     - _Requirements: 2.2, 2.3_
 
-  - [ ]* 18.2 Tulis property test untuk `calculateFreonComparison`
+  - [ ]* 18.2 Tulis property test untuk `hitungPenghematanAC`
     - **Property 1: Kalkulasi Freon Menghasilkan Nilai yang Benar dan Konsisten**
     - **Validates: Requirements 2.2, 2.3**
 
@@ -341,8 +341,8 @@ Fitur kalkulator perbandingan freon yang berdiri sendiri di halaman publik.
     - **Property 2: Validasi Input Simulator Menolak Nilai Tidak Valid**
     - **Validates: Requirements 2.4**
 
-  - [ ]* 18.4 Tulis unit test untuk `calculateFreonComparison`
-    - Contoh konkret: 1 PK, 8 jam/hari, Rp 1.500/kWh
+  - [ ]* 18.4 Tulis unit test untuk `hitungPenghematanAC`
+    - Contoh konkret: 1 PK, 1 unit, Rp 1.500/kWh, 8 jam/hari → `dayaKonv=880W`, `dayaSmat=638W`, `hematPersen="27.5"`
     - _Requirements: 2.2, 2.3_
 
 - [ ] 19. Implementasi komponen Simulator Freon

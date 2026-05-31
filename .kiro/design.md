@@ -216,35 +216,62 @@ Kalkulator interaktif yang menerima input dan menampilkan perbandingan konsumsi 
 **Props:** Tidak ada (self-contained)
 
 **State Internal:**
-- `capacityPK` — kapasitas AC dalam PK
-- `hoursPerDay` — jam pemakaian per hari
-- `tariffPerKwh` — tarif listrik per kWh (Rp)
-- `result` — objek hasil kalkulasi `{ conventional, efficient, savings }`
+- `pk` — kapasitas AC dalam PK
+- `jumlahUnit` — jumlah unit AC
+- `tarifKwh` — tarif listrik per kWh (Rp)
+- `jamPerHari` — jam pemakaian per hari
+- `result` — objek hasil kalkulasi (lihat return type di bawah)
 - `errors` — objek error validasi per field
 
 **Antarmuka Kalkulasi (`freonCalculator.js`):**
 ```js
 /**
- * Menghitung estimasi konsumsi listrik bulanan
- * @param {number} capacityPK - Kapasitas AC dalam PK
- * @param {number} hoursPerDay - Jam pemakaian per hari
- * @param {number} tariffPerKwh - Tarif listrik per kWh (Rp)
- * @returns {{ conventional: FreonResult, efficient: FreonResult, monthlySavings: number }}
+ * Menghitung perbandingan daya dan biaya listrik bulanan antara
+ * freon konvensional dan freon hemat energi (smat-trik).
+ *
+ * @param {number} pk         - Kapasitas AC dalam PK (contoh: 0.5, 1, 1.5, 2)
+ * @param {number} jumlahUnit - Jumlah unit AC
+ * @param {number} tarifKwh   - Tarif listrik per kWh (Rp)
+ * @param {number} jamPerHari - Jam pemakaian per hari
+ * @returns {{
+ *   dayaKonv:    number,  // Daya total freon konvensional (Watt)
+ *   dayaSmat:    number,  // Daya total freon smat-trik (Watt)
+ *   biayaKonv:   number,  // Biaya listrik bulanan konvensional (Rp, dibulatkan)
+ *   biayaSmat:   number,  // Biaya listrik bulanan smat-trik (Rp, dibulatkan)
+ *   hematNominal: number, // Selisih penghematan per bulan (Rp, dibulatkan)
+ *   hematPersen:  string  // Persentase penghematan (1 desimal, contoh: "27.5")
+ * }}
  */
-function calculateFreonComparison(capacityPK, hoursPerDay, tariffPerKwh)
-
-/**
- * @typedef {Object} FreonResult
- * @property {number} monthlyKwh - Konsumsi listrik bulanan (kWh)
- * @property {number} monthlyCost - Biaya listrik bulanan (Rp)
- */
+function hitungPenghematanAC(pk, jumlahUnit, tarifKwh, jamPerHari)
 ```
 
-**Konstanta Kalkulasi:**
-- Freon konvensional: EER (Energy Efficiency Ratio) = 8.5 BTU/Watt
-- Freon hemat energi (smart-trik): EER = 11.0 BTU/Watt
-- Konversi: 1 PK = 9.000 BTU/h
+**Rumus Kalkulasi:**
+```js
+const TEGANGAN = 220; // Volt
+
+// 1. Hitung Watt masing-masing tipe
+const wattKonv = (pk * 4.0) * TEGANGAN * jumlahUnit;
+const wattSmat = (pk * 2.9) * TEGANGAN * jumlahUnit;
+
+// 2. Hitung kWh per hari
+const kwhKonvHari = (wattKonv / 1000) * jamPerHari;
+const kwhSmatHari = (wattSmat / 1000) * jamPerHari;
+
+// 3. Hitung Biaya Bulanan (30 hari)
+const biayaKonvBulan = kwhKonvHari * tarifKwh * 30;
+const biayaSmatBulan = kwhSmatHari * tarifKwh * 30;
+
+// 4. Hitung Penghematan
+const totalPenghematanBulan = biayaKonvBulan - biayaSmatBulan;
+const persentaseHemat = (totalPenghematanBulan / biayaKonvBulan) * 100;
+```
+
+**Konstanta dan Asumsi:**
+- Tegangan: 220 Volt
+- Faktor arus freon konvensional: 4.0 A/PK
+- Faktor arus freon smat-trik: 2.9 A/PK
 - Hari per bulan: 30 hari
+- Penghematan smat-trik vs konvensional: ~27.5% (tetap untuk semua nilai input valid)
 
 #### 2. `OrderForm` (Komponen Publik)
 
@@ -522,7 +549,7 @@ Order baru dapat diterima jika: `used_units + new_order_total_units <= 20`
 
 ### Property 1: Kalkulasi Freon Menghasilkan Nilai yang Benar dan Konsisten
 
-*Untuk sembarang* kapasitas AC positif (dalam PK), jam pemakaian per hari positif, dan tarif listrik per kWh positif, fungsi `calculateFreonComparison` harus menghasilkan: (1) konsumsi listrik freon hemat energi lebih kecil dari freon konvensional, (2) kedua nilai konsumsi positif, dan (3) `monthlySavings` sama dengan selisih biaya konvensional dikurangi biaya hemat energi.
+*Untuk sembarang* nilai `pk` positif, `jumlahUnit` positif, `tarifKwh` positif, dan `jamPerHari` positif, fungsi `hitungPenghematanAC` harus menghasilkan: (1) `dayaSmat < dayaKonv`, (2) `biayaSmat < biayaKonv`, (3) `hematNominal === biayaKonv - biayaSmat`, dan (4) `hematPersen` konsisten dengan `(hematNominal / biayaKonv) * 100` dibulatkan ke 1 desimal. Persentase penghematan harus selalu ~27.5% karena merupakan konstanta dari rasio faktor arus (2.9/4.0).
 
 **Validates: Requirements 2.2, 2.3**
 
@@ -818,19 +845,20 @@ Setiap property test harus diberi komentar referensi ke properti desain:
 
 ```js
 // Feature: ac-maintenance-service, Property 1: Kalkulasi freon menghasilkan nilai yang benar dan konsisten
-test('kalkulasi freon: efficient selalu lebih hemat dari conventional', () => {
+test('hitungPenghematanAC: smat selalu lebih hemat dari konvensional', () => {
   fc.assert(
     fc.property(
-      fc.float({ min: 0.5, max: 5.0 }),  // capacityPK
-      fc.float({ min: 1, max: 24 }),      // hoursPerDay
-      fc.float({ min: 500, max: 5000 }),  // tariffPerKwh
-      (capacityPK, hoursPerDay, tariffPerKwh) => {
-        const result = calculateFreonComparison(capacityPK, hoursPerDay, tariffPerKwh);
+      fc.float({ min: 0.5, max: 5.0 }),   // pk
+      fc.integer({ min: 1, max: 20 }),     // jumlahUnit
+      fc.float({ min: 500, max: 5000 }),   // tarifKwh
+      fc.float({ min: 1, max: 24 }),       // jamPerHari
+      (pk, jumlahUnit, tarifKwh, jamPerHari) => {
+        const result = hitungPenghematanAC(pk, jumlahUnit, tarifKwh, jamPerHari);
         return (
-          result.efficient.monthlyKwh < result.conventional.monthlyKwh &&
-          result.efficient.monthlyCost > 0 &&
-          result.conventional.monthlyCost > 0 &&
-          result.monthlySavings === result.conventional.monthlyCost - result.efficient.monthlyCost
+          result.dayaSmat < result.dayaKonv &&
+          result.biayaSmat < result.biayaKonv &&
+          result.hematNominal === result.biayaKonv - result.biayaSmat &&
+          parseFloat(result.hematPersen) > 0
         );
       }
     )
@@ -843,7 +871,7 @@ test('kalkulasi freon: efficient selalu lebih hemat dari conventional', () => {
 #### `lib/freonCalculator.js`
 - **Property Test**: P1 — Kalkulasi menghasilkan nilai benar dan konsisten
 - **Property Test**: P2 — Validasi input menolak nilai tidak valid
-- **Unit Test**: Contoh kalkulasi dengan nilai spesifik (1 PK, 8 jam, Rp 1.500/kWh)
+- **Unit Test**: Contoh konkret: 1 PK, 1 unit, Rp 1.500/kWh, 8 jam/hari → `dayaKonv=880W`, `dayaSmat=638W`, hemat ~27.5%nit Test**: Contoh kalkulasi dengan nilai spesifik (1 PK, 8 jam, Rp 1.500/kWh)
 
 #### `lib/validators.js`
 - **Property Test**: P3 — Validasi form order menolak field wajib kosong
