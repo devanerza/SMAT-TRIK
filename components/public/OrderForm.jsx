@@ -119,7 +119,7 @@ export default function OrderForm({ services }) {
   if (quotaLoading) {
     return (
       <div className="flex justify-center py-12">
-        <span className="loading loading-spinner loading-lg text-primary" />
+        <span className="loading loading-spinner loading-lg text-orange-500" />
       </div>
     );
   }
@@ -248,7 +248,7 @@ export default function OrderForm({ services }) {
         <div className="card-body">
           <div className="flex items-center justify-between mb-4">
             <h2 className="card-title text-lg">Item Pesanan</h2>
-            <button type="button" className="btn btn-outline btn-primary btn-sm" onClick={addItem}>
+            <button type="button" className="btn btn-outline text-orange-500 btn-sm hover:bg-orange-600 hover:text-white hover:border-none" onClick={addItem}>
               + Tambah Item
             </button>
           </div>
@@ -332,7 +332,7 @@ export default function OrderForm({ services }) {
 
       <button
         type="submit"
-        className="btn btn-primary w-full"
+        className="btn bg-orange-500 hover:bg-orange-600 text-white w-full"
         disabled={submitting || remainingUnits <= 0}
       >
         {submitting ? (

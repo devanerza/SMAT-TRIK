@@ -37,7 +37,7 @@ export default function Navbar() {
               className={
                 pathname === href
                   ? 'text-orange-600 border-b-2 border-orange-600 pb-1'
-                  : 'hover:text-slate-900 transition-colors'
+                  : 'hover:text-orange-600 transition-colors'
               }
             >
               {label}
@@ -88,7 +88,7 @@ export default function Navbar() {
         <div>
           <Link
             href="/order"
-            className="inline-flex items-center justify-center px-6 py-2.5 bg-[#8C3005] hover:bg-[#732704] text-white font-bold text-sm rounded-lg shadow-sm hover:shadow transition-all duration-200"
+            className="inline-flex items-center justify-center px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white font-bold text-sm rounded-lg shadow-sm hover:shadow transition-all duration-200"
           >
             Book Service
           </Link>

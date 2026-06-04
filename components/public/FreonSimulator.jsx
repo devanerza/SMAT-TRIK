@@ -128,44 +128,89 @@ export default function FreonSimulator() {
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary w-full">
+          <button type="submit" className="btn text-white bg-orange-500 w-full hover:bg-orange-600">
             Hitung Penghematan
           </button>
         </form>
 
         {result && (
-          <div className="mt-6 space-y-4">
+          <div className="mt-6 space-y-5">
             <div className="divider">Hasil Perbandingan</div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="card bg-base-200 p-4">
-                <h4 className="font-bold text-sm mb-2">AC Konvensional</h4>
-                <p className="text-lg font-bold text-base-content">
-                  {formatRupiah(result.biayaKonv)}
-                </p>
-                <p className="text-xs text-base-content/60">
-                  / bulan ({result.dayaKonv} W)
-                </p>
+            {/* Cost Comparison Bar Chart */}
+            <div className="space-y-3">
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-semibold text-slate-600">AC Konvensional</span>
+                  <span className="text-sm font-bold text-slate-800">{formatRupiah(result.biayaKonv)}</span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                  <div
+                    className="bg-slate-500 h-full rounded-full transition-all duration-700"
+                    style={{ width: '100%' }}
+                  />
+                </div>
               </div>
-              <div className="card bg-success/10 p-4 border border-success/30">
-                <h4 className="font-bold text-sm mb-2">AC dengan Smat-Trik</h4>
-                <p className="text-lg font-bold text-success">
-                  {formatRupiah(result.biayaSmat)}
+              <div>
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-sm font-semibold text-orange-600">AC dengan Smat-Trik</span>
+                  <span className="text-sm font-bold text-emerald-600">{formatRupiah(result.biayaSmat)}</span>
+                </div>
+                <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                  <div
+                    className="bg-orange-500 h-full rounded-full transition-all duration-700"
+                    style={{ width: `${((result.biayaSmat / result.biayaKonv) * 100).toFixed(1)}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Savings Gauge / Ring */}
+            <div className="flex items-center gap-6 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-5 border border-emerald-100">
+              {/* Circular gauge */}
+              <div className="relative w-20 h-20 shrink-0">
+                <svg className="w-20 h-20 -rotate-90" viewBox="0 0 72 72">
+                  <circle cx="36" cy="36" r="30" fill="none" stroke="#e2e8f0" strokeWidth="6" />
+                  <circle
+                    cx="36" cy="36" r="30"
+                    fill="none" stroke="#10b981"
+                    strokeWidth="6"
+                    strokeLinecap="round"
+                    strokeDasharray={`${(result.hematPersen / 100) * 188.5} 188.5`}
+                    className="transition-all duration-1000"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-extrabold text-emerald-600">
+                    {result.hematPersen.toFixed(0)}%
+                  </span>
+                </div>
+              </div>
+
+              {/* Savings details */}
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600 mb-0.5">
+                  Penghematan per Bulan
                 </p>
-                <p className="text-xs text-base-content/60">
-                  / bulan ({result.dayaSmat} W)
+                <p className="text-2xl font-extrabold text-emerald-700">
+                  {formatRupiah(result.hematNominal)}
+                </p>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  Daya: {result.dayaKonv} W → {result.dayaSmat} W
                 </p>
               </div>
             </div>
 
-            <div className="card bg-primary/10 p-4 border border-primary/30 text-center">
-              <p className="text-sm text-base-content/60">Penghematan per Bulan</p>
-              <p className="text-2xl font-bold text-primary">
-                {formatRupiah(result.hematNominal)}
-              </p>
-              <p className="text-sm text-primary font-medium">
-                Hemat {result.hematPersen.toFixed(1)}%
-              </p>
+            {/* Summary Cards */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-slate-100 rounded-xl p-3 text-center">
+                <p className="text-xs text-slate-500 font-medium">Konvensional</p>
+                <p className="text-base font-bold text-slate-700">{result.dayaKonv} W</p>
+              </div>
+              <div className="bg-orange-50 rounded-xl p-3 text-center border border-orange-100">
+                <p className="text-xs text-orange-600 font-medium">Smat-Trik</p>
+                <p className="text-base font-bold text-orange-600">{result.dayaSmat} W</p>
+              </div>
             </div>
           </div>
         )}
