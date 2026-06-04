@@ -327,33 +327,33 @@ Modul inti yang mencakup seluruh alur pemesanan service AC, dashboard Admin, das
 
 Fitur kalkulator perbandingan freon yang berdiri sendiri di halaman publik.
 
-- [ ] 18. Implementasi logika kalkulasi freon (`lib/freonCalculator.js`)
+- [x] 18. Implementasi logika kalkulasi freon (`lib/freonCalculator.js`)
   - [ ] 18.1 Implementasi fungsi `hitungPenghematanAC(pk, jumlahUnit, tarifKwh, jamPerHari)`
     - Tegangan: 220V; faktor arus konvensional: 4.0 A/PK; faktor arus smat-trik: 2.9 A/PK; 30 hari/bulan
     - Kembalikan `{ dayaKonv, dayaSmat, biayaKonv, biayaSmat, hematNominal, hematPersen }`
     - _Requirements: 2.2, 2.3_
 
-  - [ ]* 18.2 Tulis property test untuk `hitungPenghematanAC`
+  - [x]* 18.2 Tulis property test untuk `hitungPenghematanAC`
     - **Property 1: Kalkulasi Freon Menghasilkan Nilai yang Benar dan Konsisten**
     - **Validates: Requirements 2.2, 2.3**
 
-  - [ ]* 18.3 Tulis property test untuk validasi input simulator freon
+  - [x]* 18.3 Tulis property test untuk validasi input simulator freon
     - **Property 2: Validasi Input Simulator Menolak Nilai Tidak Valid**
     - **Validates: Requirements 2.4**
 
-  - [ ]* 18.4 Tulis unit test untuk `hitungPenghematanAC`
+  - [x]* 18.4 Tulis unit test untuk `hitungPenghematanAC`
     - Contoh konkret: 1 PK, 1 unit, Rp 1.500/kWh, 8 jam/hari → `dayaKonv=880W`, `dayaSmat=638W`, `hematPersen="27.5"`
     - _Requirements: 2.2, 2.3_
 
-- [ ] 19. Implementasi komponen Simulator Freon
-  - [ ] 19.1 Buat komponen `components/public/FreonSimulator.jsx` — form input dan tampilan hasil perbandingan
+- [x] 19. Implementasi komponen Simulator Freon
+  - [x] 19.1 Buat komponen `components/public/FreonSimulator.jsx` — form input dan tampilan hasil perbandingan
     - Input: kapasitas AC (PK), jam pemakaian/hari, tarif listrik/kWh
     - Tampilkan hasil berdampingan: konsumsi konvensional vs hemat energi dan selisih biaya bulanan
     - Validasi input client-side; tampilkan pesan error inline untuk nilai tidak valid
     - Gunakan `freonCalculator.js` untuk kalkulasi
     - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 20. Checkpoint Modul 2 — Pastikan simulator freon berfungsi dan tes lulus
+- [x] 20. Checkpoint Modul 2 — Pastikan simulator freon berfungsi dan tes lulus
   - Pastikan semua tes lulus, tanyakan kepada pengguna jika ada pertanyaan.
 
 ---
