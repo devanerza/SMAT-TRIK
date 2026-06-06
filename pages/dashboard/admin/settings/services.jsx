@@ -100,7 +100,7 @@ function AdminServicesPage() {
     return (
       <DashboardLayout>
         <div className="flex justify-center py-12">
-          <span className="loading loading-spinner loading-lg text-primary" />
+          <span className="loading loading-spinner loading-lg text-orange-500" />
         </div>
       </DashboardLayout>
     );
@@ -108,10 +108,10 @@ function AdminServicesPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Layanan</h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Layanan</h1>
         <button
-          className="btn btn-primary btn-sm"
+          className="inline-flex items-center justify-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200"
           onClick={() => {
             setShowAddForm(!showAddForm);
             setEditingId(null);
@@ -123,114 +123,116 @@ function AdminServicesPage() {
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleAdd} className="card bg-base-100 border border-base-300 p-4 mb-6">
+        <form onSubmit={handleAdd} className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="form-control">
-              <label className="label"><span className="label-text">Nama Layanan</span></label>
+              <label className="block text-sm font-semibold text-slate-600 mb-1.5">Nama Layanan</label>
               <input
                 type="text"
-                className="input input-bordered input-sm"
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 required
               />
             </div>
             <div className="form-control">
-              <label className="label"><span className="label-text">Harga (Rp)</span></label>
+              <label className="block text-sm font-semibold text-slate-600 mb-1.5">Harga (Rp)</label>
               <input
                 type="number"
-                className="input input-bordered input-sm"
+                className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
                 value={form.price}
                 onChange={(e) => setForm({ ...form, price: e.target.value })}
               />
             </div>
           </div>
           <div className="mt-4">
-            <button type="submit" className="btn btn-primary btn-sm">
+            <button type="submit" className="inline-flex items-center justify-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200">
               Simpan
             </button>
           </div>
         </form>
       )}
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra">
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Harga</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            {services.length === 0 ? (
-              <tr>
-                <td colSpan="4" className="text-center py-8 text-base-content/50">
-                  Belum ada layanan
-                </td>
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-slate-100 bg-slate-50/50">
+                <th className="text-left font-semibold text-slate-500 px-6 py-3.5">Nama</th>
+                <th className="text-left font-semibold text-slate-500 px-6 py-3.5">Harga</th>
+                <th className="text-left font-semibold text-slate-500 px-6 py-3.5">Aksi</th>
               </tr>
-            ) : (
-              services.map((service) => (
-                <tr key={service.id}>
-                  {editingId === service.id ? (
-                    <>
-                      <td>
-                        <input
-                          type="text"
-                          className="input input-bordered input-sm w-full"
-                          value={form.name}
-                          onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          className="input input-bordered input-sm w-full"
-                          value={form.price}
-                          onChange={(e) => setForm({ ...form, price: e.target.value })}
-                        />
-                      </td>
-                      <td className="flex gap-2">
-                        <button
-                          className="btn btn-primary btn-xs"
-                          onClick={() => handleUpdate(service.id)}
-                        >
-                          Simpan
-                        </button>
-                        <button
-                          className="btn btn-ghost btn-xs"
-                          onClick={() => {
-                            setEditingId(null);
-                            setForm({ name: '', price: '' });
-                          }}
-                        >
-                          Batal
-                        </button>
-                      </td>
-                    </>
-                  ) : (
-                    <>
-                      <td className="font-medium">{service.name}</td>
-                      <td>
-                        {service.price != null
-                          ? `Rp ${service.price.toLocaleString('id-ID')}`
-                          : '-'}
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-ghost btn-xs"
-                          onClick={() => startEdit(service)}
-                        >
-                          Ubah
-                        </button>
-                      </td>
-                    </>
-                  )}
+            </thead>
+            <tbody>
+              {services.length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="text-center py-8 text-slate-400">
+                    Belum ada layanan
+                  </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                services.map((service) => (
+                  <tr key={service.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
+                    {editingId === service.id ? (
+                      <>
+                        <td className="px-6 py-3">
+                          <input
+                            type="text"
+                            className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+                            value={form.name}
+                            onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          />
+                        </td>
+                        <td className="px-6 py-3">
+                          <input
+                            type="number"
+                            className="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
+                            value={form.price}
+                            onChange={(e) => setForm({ ...form, price: e.target.value })}
+                          />
+                        </td>
+                        <td className="px-6 py-3 flex gap-2">
+                          <button
+                            className="inline-flex items-center justify-center px-3 py-1.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xs rounded-lg transition-colors"
+                            onClick={() => handleUpdate(service.id)}
+                          >
+                            Simpan
+                          </button>
+                          <button
+                            className="inline-flex items-center justify-center px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-600 border border-slate-300 font-semibold text-xs rounded-lg transition-colors"
+                            onClick={() => {
+                              setEditingId(null);
+                              setForm({ name: '', price: '' });
+                            }}
+                          >
+                            Batal
+                          </button>
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td className="font-medium text-slate-800 px-6 py-3.5">{service.name}</td>
+                        <td className="text-slate-600 px-6 py-3.5">
+                          {service.price != null
+                            ? `Rp ${service.price.toLocaleString('id-ID')}`
+                            : '-'}
+                        </td>
+                        <td className="px-6 py-3.5">
+                          <button
+                            className="text-orange-600 hover:text-orange-700 font-semibold text-xs transition-colors"
+                            onClick={() => startEdit(service)}
+                          >
+                            Ubah
+                          </button>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </DashboardLayout>
   );

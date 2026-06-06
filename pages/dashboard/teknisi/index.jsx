@@ -19,21 +19,25 @@ function TeknisiDashboardPage() {
 
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-bold mb-6">Dashboard Teknisi</h1>
-      <p className="text-sm text-base-content/60 mb-4">
-        Menampilkan pesanan yang ditugaskan ke tim Anda.
-      </p>
-      <OrderTable
-        orders={orders}
-        statusFilter={statusFilter}
-        dateStart={dateStart}
-        dateEnd={dateEnd}
-        onStatusFilter={setStatusFilter}
-        onDateStartChange={setDateStart}
-        onDateEndChange={setDateEnd}
-        onOrderClick={(id) => router.push(`/dashboard/teknisi/orders/${id}`)}
-        loading={loading}
-      />
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Dashboard Teknisi</h1>
+        <p className="text-sm text-slate-500 mt-1">
+          Menampilkan pesanan yang ditugaskan ke tim Anda.
+        </p>
+      </div>
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <OrderTable
+          orders={orders}
+          statusFilter={statusFilter}
+          dateStart={dateStart}
+          dateEnd={dateEnd}
+          onStatusFilter={setStatusFilter}
+          onDateStartChange={setDateStart}
+          onDateEndChange={setDateEnd}
+          onOrderClick={(id) => router.push(`/dashboard/teknisi/orders/${id}`)}
+          loading={loading}
+        />
+      </div>
     </DashboardLayout>
   );
 }

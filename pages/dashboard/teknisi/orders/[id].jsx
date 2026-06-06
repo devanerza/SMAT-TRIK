@@ -71,7 +71,7 @@ function TeknisiOrderDetailPage() {
     return (
       <DashboardLayout>
         <div className="flex justify-center py-12">
-          <span className="loading loading-spinner loading-lg text-primary" />
+          <span className="loading loading-spinner loading-lg text-orange-500" />
         </div>
       </DashboardLayout>
     );
@@ -80,11 +80,11 @@ function TeknisiOrderDetailPage() {
   if (error) {
     return (
       <DashboardLayout>
-        <div className="alert alert-error max-w-md mx-auto">
-          <span>{error}</span>
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 max-w-md mx-auto">
+          <p className="text-red-700 text-sm font-medium">{error}</p>
         </div>
         <div className="text-center mt-4">
-          <button className="btn btn-ghost" onClick={() => router.push('/dashboard/teknisi')}>
+          <button className="inline-flex items-center justify-center px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-semibold text-sm rounded-lg shadow-sm hover:shadow transition-all duration-200" onClick={() => router.push('/dashboard/teknisi')}>
             Kembali ke Dashboard
           </button>
         </div>
@@ -99,15 +99,13 @@ function TeknisiOrderDetailPage() {
         onBack={() => router.push('/dashboard/teknisi')}
       />
 
-      <div className="divider" />
-
-      <div className="card bg-base-100 border border-base-300">
-        <div className="card-body">
-          <h3 className="card-title text-lg mb-4">Aksi</h3>
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 mt-6">
+        <div className="p-6">
+          <h3 className="text-lg font-extrabold text-slate-900 mb-4">Aksi</h3>
 
           {order.status === 'Proses' && (
             <button
-              className="btn btn-success btn-sm"
+              className="inline-flex items-center justify-center px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200"
               onClick={() => setShowStatusModal(true)}
             >
               Tandai Selesai
@@ -115,19 +113,19 @@ function TeknisiOrderDetailPage() {
           )}
 
           {order.status === 'Selesai' && (
-            <p className="text-sm text-base-content/50">
+            <p className="text-sm text-slate-400">
               Pesanan ini telah selesai.
             </p>
           )}
 
           {order.status === 'Pending' && (
-            <p className="text-sm text-base-content/50">
+            <p className="text-sm text-slate-400">
               Menunggu konfirmasi admin.
             </p>
           )}
 
           {order.status === 'Batal' && (
-            <p className="text-sm text-base-content/50">
+            <p className="text-sm text-slate-400">
               Pesanan ini telah dibatalkan.
             </p>
           )}

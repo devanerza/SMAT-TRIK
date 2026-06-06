@@ -81,13 +81,13 @@ function AdminAnalyticsPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Analytics</h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Analytics</h1>
         <div className="flex gap-3">
           <div className="form-control">
             <input
               type="date"
-              className="input input-bordered input-sm"
+              className="input input-bordered input-sm bg-white border-slate-200 focus:border-orange-500 focus:ring-orange-500 rounded-lg text-sm"
               value={dateStart}
               onChange={(e) => setDateStart(e.target.value)}
             />
@@ -95,7 +95,7 @@ function AdminAnalyticsPage() {
           <div className="form-control">
             <input
               type="date"
-              className="input input-bordered input-sm"
+              className="input input-bordered input-sm bg-white border-slate-200 focus:border-orange-500 focus:ring-orange-500 rounded-lg text-sm"
               value={dateEnd}
               onChange={(e) => setDateEnd(e.target.value)}
             />
@@ -105,7 +105,7 @@ function AdminAnalyticsPage() {
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <span className="loading loading-spinner loading-lg text-primary" />
+          <span className="loading loading-spinner loading-lg text-orange-500" />
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -124,27 +124,27 @@ function AdminAnalyticsPage() {
             teamNames={teamNames}
           />
 
-          <div className="card bg-base-100 border border-base-300">
-            <div className="card-body">
-              <h3 className="card-title text-lg">Pelanggan Berulang</h3>
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-100">
+            <div className="p-6">
+              <h3 className="text-lg font-extrabold text-slate-900 mb-4">Pelanggan Berulang</h3>
               {repeatEntries.length === 0 ? (
-                <p className="text-sm text-base-content/50 py-4">
+                <p className="text-sm text-slate-400 py-4">
                   Belum ada pelanggan berulang
                 </p>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="table table-zebra">
+                  <table className="w-full text-sm">
                     <thead>
-                      <tr>
-                        <th>Identitas</th>
-                        <th>Jumlah Order</th>
+                      <tr className="border-b border-slate-100">
+                        <th className="text-left font-semibold text-slate-500 pb-3">Identitas</th>
+                        <th className="text-left font-semibold text-slate-500 pb-3">Jumlah Order</th>
                       </tr>
                     </thead>
                     <tbody>
                       {repeatEntries.map(([identifier, customerOrders]) => (
-                        <tr key={identifier}>
-                          <td className="font-medium text-sm">{identifier}</td>
-                          <td>{customerOrders.length}</td>
+                        <tr key={identifier} className="border-b border-slate-50 last:border-0">
+                          <td className="font-medium text-slate-800 py-3">{identifier}</td>
+                          <td className="text-slate-600 py-3">{customerOrders.length}</td>
                         </tr>
                       ))}
                     </tbody>

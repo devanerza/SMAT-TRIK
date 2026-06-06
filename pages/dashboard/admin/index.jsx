@@ -19,18 +19,22 @@ function AdminDashboardPage() {
 
   return (
     <DashboardLayout>
-      <h1 className="text-2xl font-bold mb-6">Dashboard Admin</h1>
-      <OrderTable
-        orders={orders}
-        statusFilter={statusFilter}
-        dateStart={dateStart}
-        dateEnd={dateEnd}
-        onStatusFilter={setStatusFilter}
-        onDateStartChange={setDateStart}
-        onDateEndChange={setDateEnd}
-        onOrderClick={(id) => router.push(`/dashboard/admin/orders/${id}`)}
-        loading={loading}
-      />
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Dashboard Admin</h1>
+      </div>
+      <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+        <OrderTable
+          orders={orders}
+          statusFilter={statusFilter}
+          dateStart={dateStart}
+          dateEnd={dateEnd}
+          onStatusFilter={setStatusFilter}
+          onDateStartChange={setDateStart}
+          onDateEndChange={setDateEnd}
+          onOrderClick={(id) => router.push(`/dashboard/admin/orders/${id}`)}
+          loading={loading}
+        />
+      </div>
     </DashboardLayout>
   );
 }

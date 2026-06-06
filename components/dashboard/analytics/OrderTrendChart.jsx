@@ -3,11 +3,11 @@ export default function OrderTrendChart({ daily, weekly }) {
   const weeklyEntries = Object.entries(weekly || {});
 
   return (
-    <div className="card bg-base-100 border border-base-300">
-      <div className="card-body">
-        <h3 className="card-title text-lg">Tren Order Harian</h3>
+    <div className="bg-white rounded-2xl shadow-sm border border-slate-100">
+      <div className="p-6">
+        <h3 className="text-lg font-extrabold text-slate-900 mb-4">Tren Order Harian</h3>
         {dailyEntries.length === 0 ? (
-          <p className="text-sm text-base-content/50 py-4">Belum ada data</p>
+          <p className="text-sm text-slate-400 py-4">Belum ada data</p>
         ) : (
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {dailyEntries.map(([date, data]) => {
@@ -15,19 +15,19 @@ export default function OrderTrendChart({ daily, weekly }) {
               const width = (data.count / maxCount) * 100;
               return (
                 <div key={date} className="flex items-center gap-3">
-                  <span className="text-xs w-24 shrink-0 text-base-content/60">
+                  <span className="text-xs w-24 shrink-0 text-slate-400">
                     {new Date(date + 'T00:00:00').toLocaleDateString('id-ID', {
                       day: 'numeric',
                       month: 'short',
                     })}
                   </span>
-                  <div className="flex-1 h-5 bg-base-200 rounded-full overflow-hidden">
+                  <div className="flex-1 h-5 bg-slate-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-primary rounded-full transition-all"
+                      className="h-full bg-orange-500 rounded-full transition-all"
                       style={{ width: `${width}%` }}
                     />
                   </div>
-                  <span className="text-xs font-medium w-12 text-right">
+                  <span className="text-xs font-semibold w-12 text-right text-slate-600">
                     {data.count}
                   </span>
                 </div>
@@ -36,11 +36,11 @@ export default function OrderTrendChart({ daily, weekly }) {
           </div>
         )}
 
-        <div className="divider" />
+        <div className="border-t border-slate-100 my-6" />
 
-        <h3 className="card-title text-lg">Tren Order Mingguan</h3>
+        <h3 className="text-lg font-extrabold text-slate-900 mb-4">Tren Order Mingguan</h3>
         {weeklyEntries.length === 0 ? (
-          <p className="text-sm text-base-content/50 py-4">Belum ada data</p>
+          <p className="text-sm text-slate-400 py-4">Belum ada data</p>
         ) : (
           <div className="space-y-2 max-h-64 overflow-y-auto">
             {weeklyEntries.map(([week, data]) => {
@@ -48,14 +48,14 @@ export default function OrderTrendChart({ daily, weekly }) {
               const width = (data.count / maxCount) * 100;
               return (
                 <div key={week} className="flex items-center gap-3">
-                  <span className="text-xs w-24 shrink-0 text-base-content/60">{week}</span>
-                  <div className="flex-1 h-5 bg-base-200 rounded-full overflow-hidden">
+                  <span className="text-xs w-24 shrink-0 text-slate-400">{week}</span>
+                  <div className="flex-1 h-5 bg-slate-100 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-secondary rounded-full transition-all"
+                      className="h-full bg-orange-400 rounded-full transition-all"
                       style={{ width: `${width}%` }}
                     />
                   </div>
-                  <span className="text-xs font-medium w-12 text-right">
+                  <span className="text-xs font-semibold w-12 text-right text-slate-600">
                     {data.count}
                   </span>
                 </div>

@@ -15,13 +15,11 @@ export default function OrderTable({
 }) {
   return (
     <div>
-      <div className="flex flex-wrap gap-4 mb-4">
+      <div className="flex flex-wrap gap-4 mb-6">
         <div className="form-control">
-          <label className="label">
-            <span className="label-text">Status</span>
-          </label>
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">Status</label>
           <select
-            className="select select-bordered select-sm"
+            className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors min-w-[150px]"
             value={statusFilter}
             onChange={(e) => onStatusFilter(e.target.value)}
           >
@@ -33,23 +31,19 @@ export default function OrderTable({
           </select>
         </div>
         <div className="form-control">
-          <label className="label">
-            <span className="label-text">Tanggal Mulai</span>
-          </label>
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">Tanggal Mulai</label>
           <input
             type="date"
-            className="input input-bordered input-sm"
+            className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
             value={dateStart}
             onChange={(e) => onDateStartChange(e.target.value)}
           />
         </div>
         <div className="form-control">
-          <label className="label">
-            <span className="label-text">Tanggal Akhir</span>
-          </label>
+          <label className="block text-sm font-semibold text-slate-600 mb-1.5">Tanggal Akhir</label>
           <input
             type="date"
-            className="input input-bordered input-sm"
+            className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition-colors"
             value={dateEnd}
             onChange={(e) => onDateEndChange(e.target.value)}
           />
@@ -57,27 +51,27 @@ export default function OrderTable({
       </div>
 
       <div className="overflow-x-auto">
-        <table className="table table-zebra table-pin-rows">
+        <table className="w-full text-sm">
           <thead>
-            <tr>
-              <th>Nama Customer</th>
-              <th>WA</th>
-              <th>Lokasi</th>
-              <th>Status</th>
-              <th>Tim</th>
-              <th>Tanggal</th>
+            <tr className="border-b border-slate-100 bg-slate-50/50">
+              <th className="text-left font-semibold text-slate-500 px-4 py-3.5">Nama Customer</th>
+              <th className="text-left font-semibold text-slate-500 px-4 py-3.5">WA</th>
+              <th className="text-left font-semibold text-slate-500 px-4 py-3.5">Lokasi</th>
+              <th className="text-left font-semibold text-slate-500 px-4 py-3.5">Status</th>
+              <th className="text-left font-semibold text-slate-500 px-4 py-3.5">Tim</th>
+              <th className="text-left font-semibold text-slate-500 px-4 py-3.5">Tanggal</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
                 <td colSpan="6" className="text-center py-8">
-                  <span className="loading loading-spinner loading-md text-primary" />
+                  <span className="loading loading-spinner loading-md text-orange-500" />
                 </td>
               </tr>
             ) : orders.length === 0 ? (
               <tr>
-                <td colSpan="6" className="text-center py-8 text-base-content/50">
+                <td colSpan="6" className="text-center py-8 text-slate-400">
                   Tidak ada pesanan
                 </td>
               </tr>
@@ -85,37 +79,37 @@ export default function OrderTable({
               orders.map((order) => (
                 <tr
                   key={order.id}
-                  className="cursor-pointer hover"
+                  className="border-b border-slate-50 cursor-pointer hover:bg-slate-50/70 transition-colors"
                   onClick={() => onOrderClick?.(order.id)}
                 >
-                  <td>{order.cust_name}</td>
-                  <td>
+                  <td className="font-medium text-slate-800 px-4 py-3.5">{order.cust_name}</td>
+                  <td className="px-4 py-3.5">
                     <a
                       href={`https://wa.me/${order.cust_phone}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link link-primary"
+                      className="text-orange-600 hover:text-orange-700 font-medium"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {order.cust_phone}
                     </a>
                   </td>
-                  <td>
+                  <td className="px-4 py-3.5">
                     <a
                       href={order.cust_loc_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="link link-primary truncate max-w-[200px] inline-block"
+                      className="text-orange-600 hover:text-orange-700 truncate max-w-[200px] inline-block"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {order.cust_loc_url}
                     </a>
                   </td>
-                  <td>
+                  <td className="px-4 py-3.5">
                     <StatusBadge status={order.status} />
                   </td>
-                  <td>{order.team_name || '-'}</td>
-                  <td className="text-sm text-base-content/60">
+                  <td className="text-slate-600 px-4 py-3.5">{order.team_name || '-'}</td>
+                  <td className="text-slate-400 text-xs px-4 py-3.5">
                     {new Date(order.created_at).toLocaleDateString('id-ID', {
                       year: 'numeric',
                       month: 'short',

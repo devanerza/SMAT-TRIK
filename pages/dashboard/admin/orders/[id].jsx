@@ -8,9 +8,9 @@ import AssignTeamModal from '../../../../components/dashboard/AssignTeamModal';
 import StatusUpdateModal from '../../../../components/dashboard/StatusUpdateModal';
 
 const statusActions = [
-  { label: 'Proses', status: 'Proses', color: 'btn-info' },
-  { label: 'Selesai', status: 'Selesai', color: 'btn-success' },
-  { label: 'Batal', status: 'Batal', color: 'btn-error' },
+  { label: 'Proses', status: 'Proses', color: 'info' },
+  { label: 'Selesai', status: 'Selesai', color: 'success' },
+  { label: 'Batal', status: 'Batal', color: 'error' },
 ];
 
 function AdminOrderDetailPage() {
@@ -129,7 +129,7 @@ function AdminOrderDetailPage() {
     return (
       <DashboardLayout>
         <div className="flex justify-center py-12">
-          <span className="loading loading-spinner loading-lg text-primary" />
+          <span className="loading loading-spinner loading-lg text-orange-500" />
         </div>
       </DashboardLayout>
     );
@@ -138,11 +138,11 @@ function AdminOrderDetailPage() {
   if (error) {
     return (
       <DashboardLayout>
-        <div className="alert alert-error max-w-md mx-auto">
-          <span>{error}</span>
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 max-w-md mx-auto">
+          <p className="text-red-700 text-sm font-medium">{error}</p>
         </div>
         <div className="text-center mt-4">
-          <button className="btn btn-ghost" onClick={() => router.push('/dashboard/admin')}>
+          <button className="inline-flex items-center justify-center px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 font-semibold text-sm rounded-lg shadow-sm hover:shadow transition-all duration-200" onClick={() => router.push('/dashboard/admin')}>
             Kembali ke Dashboard
           </button>
         </div>
@@ -157,15 +157,13 @@ function AdminOrderDetailPage() {
         onBack={() => router.push('/dashboard/admin')}
       />
 
-      <div className="divider" />
-
-      <div className="card bg-base-100 border border-base-300">
-        <div className="card-body">
-          <h3 className="card-title text-lg mb-4">Aksi</h3>
+      <div className="bg-white rounded-2xl shadow-sm border border-slate-100 mt-6">
+        <div className="p-6">
+          <h3 className="text-lg font-extrabold text-slate-900 mb-4">Aksi</h3>
 
           <div className="flex flex-wrap gap-3">
             <button
-              className="btn btn-outline btn-primary btn-sm"
+              className="inline-flex items-center justify-center px-4 py-2 bg-white hover:bg-slate-50 text-orange-600 border border-orange-300 font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200"
               onClick={() => setShowAssignModal(true)}
             >
               Assign Tim
@@ -174,7 +172,13 @@ function AdminOrderDetailPage() {
             {statusActions.map((action) => (
               <button
                 key={action.status}
-                className={`btn ${action.color} btn-sm`}
+                className={`inline-flex items-center justify-center px-4 py-2 font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200 ${
+                  action.color === 'info'
+                    ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                    : action.color === 'success'
+                    ? 'bg-emerald-500 hover:bg-emerald-600 text-white'
+                    : 'bg-red-500 hover:bg-red-600 text-white'
+                }`}
                 onClick={() => handleStatusClick(action.status)}
               >
                 {action.label}
@@ -182,8 +186,8 @@ function AdminOrderDetailPage() {
             ))}
           </div>
 
-          <div className="alert alert-info mt-4 text-sm">
-            <span>Item pesanan tidak dapat diubah setelah tersimpan.</span>
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mt-4">
+            <p className="text-blue-700 text-xs font-medium">Item pesanan tidak dapat diubah setelah tersimpan.</p>
           </div>
         </div>
       </div>
