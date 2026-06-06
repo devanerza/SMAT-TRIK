@@ -20,16 +20,33 @@ async function handleGetUsers(req, res) {
     return res.status(403).json({ error: 'Hanya admin yang dapat melihat daftar pengguna' });
   }
 
-  const { data: users, error } = await supabaseAdmin
+  const { data: teknisiDetails, error: detailsError } = await supabaseAdmin
     .from('user_details')
-    .select('*')
+    .select('user_id')
     .eq('role', 'teknisi');
 
-  if (error) {
-    return res.status(500).json({ error: 'Gagal mengambil daftar pengguna' });
+  if (detailsError) {
+    return res.status(500).json({ error: 'Gagal mengambil detail teknisi' });
   }
 
-  return res.status(200).json(users || []);
+  const teknisiIds = new Set(teknisiDetails?.map(d => d.user_id) || []);
+
+  const { data: { users: authUsers }, error: listError } = await supabaseAdmin.auth.admin.listUsers();
+
+  if (listError) {
+    return res.status(500).json({ error: 'Gagal mengambil data pengguna' });
+  }
+
+  const teknisiUsers = authUsers
+    .filter(au => teknisiIds.has(au.id))
+    .map(au => ({
+      id: au.id,
+      email: au.email,
+      name: au.user_metadata?.name || '',
+      phone: au.user_metadata?.phone || '',
+    }));
+
+  return res.status(200).json(teknisiUsers);
 }
 
 async function handleCreateUser(req, res) {
@@ -50,27 +67,12 @@ async function handleCreateUser(req, res) {
     email,
     password,
     email_confirm: true,
+    user_metadata: { name: name || '', phone: phone || '' },
   });
 
   if (signUpError) {
     return res.status(500).json({ error: 'Gagal membuat akun pengguna' });
   }
-
-  const { data: detail, error: detailError } = await supabaseAdmin
-    .from('user_details')
-    .insert({
-      id: authUser.user.id,
-      name: name || null,
-      phone: phone || null,
-      role: 'teknisi',
-    })
-    .select()
-    .single();
-
-  if (detailError) {
-    await supabaseAdmin.auth.admin.deleteUser(authUser.user.id);
-    return res.status(500).json({ error: 'Gagal menyimpan detail pengguna' });
-  }
-
-  return res.status(201).json(detail);
+  
+  return res.status(201).json(authUser);
 }

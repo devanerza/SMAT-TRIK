@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 import ProtectedRoute from '../../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../../components/shared/DashboardLayout';
 
@@ -11,12 +12,18 @@ function AdminTeamsPage() {
 
   const fetchTeams = useCallback(async () => {
     try {
-      const res = await fetch('/api/users');
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = {};
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const res = await fetch('/api/users', { headers });
       if (res.ok) {
         const data = await res.json();
         setTeams(data);
       }
-    } catch {
+    } catch (error) {
+      console.error('Error fetching data: ' + error)
     } finally {
       setLoading(false);
     }
@@ -31,14 +38,19 @@ function AdminTeamsPage() {
     if (!form.email.trim() || !form.password) return;
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
       const res = await fetch('/api/users', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           email: form.email.trim(),
           password: form.password,
-          name: form.name.trim() || null,
-          phone: form.phone.trim() || null,
+          name: form.name.trim() || '',
+          phone: form.phone.trim() || '',
         }),
       });
       if (res.ok) {
