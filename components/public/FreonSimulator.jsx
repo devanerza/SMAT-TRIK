@@ -55,7 +55,7 @@ export default function FreonSimulator() {
       <div className="card-body">
         <h3 className="card-title text-lg">Simulator Penghematan Freon AC</h3>
         <p className="text-sm text-base-content/60 mb-4">
-          Bandingkan biaya listrik AC konvensional vs AC dengan teknologi Smat-Trik.
+          Bandingkan biaya listrik AC konvensional vs AC dengan teknologi SMAT-TRIK.
         </p>
 
         <form onSubmit={handleHitung} className="space-y-4">

@@ -25,7 +25,7 @@ export default function Layout({ children }) {
                   </span>
                 </div>
                 <p className="text-sm leading-relaxed text-slate-500">
-                  Spesialis pendingin industri dan solusi energi HVAC terpercaya sejak 2008.
+                  Spesialis pendingin industri dan solusi energi HVAC terpercaya sejak 2002.
                 </p>
               </div>
 
