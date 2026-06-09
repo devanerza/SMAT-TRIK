@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { validateCustomerInfo, validateOrderItem } from '../../lib/validators';
 import { useQuota } from '../../hooks/useQuota';
+import LocationSearch from './LocationSearch';
 
 const capacityOptions = [
   { value: '', label: 'Pilih Kapasitas' },
@@ -21,7 +22,7 @@ export default function OrderForm({ services }) {
     custName: '',
     custPhone: '',
     custEmail: '',
-    custLocUrl: '',
+    location: null
   });
   const [items, setItems] = useState([{ ...emptyItem }]);
   const [errors, setErrors] = useState({});
@@ -226,15 +227,12 @@ export default function OrderForm({ services }) {
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text">URL Lokasi (Google Maps)</span>
+                <span className="label-text">Ketik untuk mencari</span>
               </label>
-              <input
-                type="url"
-                className={`input input-bordered ${errors.custLocUrl ? 'input-error' : ''}`}
-                value={customer.custLocUrl}
-                onChange={(e) => updateCustomer('custLocUrl', e.target.value)}
-                placeholder="https://maps.google.com/..."
-                required
+              <LocationSearch
+                value={customer.location}
+                onChange={(loc) => updateCustomer("location", loc)}
+                error={errors.custLocation}
               />
               {errors.custLocUrl && (
                 <label className="label"><span className="label-text-alt text-error">{errors.custLocUrl}</span></label>

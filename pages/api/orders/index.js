@@ -121,6 +121,8 @@ async function handleCreateOrder(req, res) {
       cust_phone: customerInfo.custPhone,
       cust_email: customerInfo.custEmail || null,
       cust_loc_url: customerInfo.custLocUrl,
+      lat: String(customerInfo.custLat ?? ''),
+      long: String(customerInfo.custLng ?? ''),
       status: 'Pending',
       team_id: null,
     })
@@ -152,6 +154,8 @@ async function handleCreateOrder(req, res) {
       custName: customerInfo.custName,
       custPhone: customerInfo.custPhone,
       custLocUrl: customerInfo.custLocUrl,
+      custLat: customerInfo.custLat ?? null,
+      custLng: customerInfo.custLng ?? null,
     },
     items,
     remainingUnits,

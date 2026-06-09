@@ -119,6 +119,32 @@ describe('API Route: POST /api/orders', () => {
     expect(res._json.waLink).toContain('wa.me');
   });
 
+  test('creates an order successfully with custLat/custLng', async () => {
+    const { supabaseAdmin } = require('../../lib/supabaseAdmin');
+    const quotaChain = makeChain({ data: [], error: null });
+    const insertChain = makeChain({ data: { id: 2, team_id: null, status: 'Pending' }, error: null });
+    quotaChain.insert = jest.fn(() => insertChain);
+    supabaseAdmin.from.mockReturnValue(quotaChain);
+
+    const handler = require('../../pages/api/orders/index').default;
+    const { req, res } = createMockReqRes('POST', {}, {
+      customerInfo: {
+        custName: 'Jane Doe',
+        custPhone: '6281234567890',
+        custLocUrl: 'https://www.google.com/maps?q=-6.2,106.8',
+        custLat: -6.2,
+        custLng: 106.8,
+      },
+      items: [
+        { serviceId: 'ac_install', acCapacity: '1_pk', unitCount: 1 },
+      ],
+    });
+    await handler(req, res);
+    expect(res._status).toBe(201);
+    expect(res._json.order).toBeDefined();
+    expect(res._json.waLink).toContain('wa.me');
+  });
+
   test('returns 422 for invalid customer info', async () => {
     const handler = require('../../pages/api/orders/index').default;
     const { req, res } = createMockReqRes('POST', {}, {

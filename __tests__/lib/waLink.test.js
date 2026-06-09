@@ -56,6 +56,26 @@ describe('wa.me Link Builder and Correctness Properties Suite', () => {
       );
     });
 
+    test('buildWaLink includes coordinates link when custLat/custLng are provided', () => {
+      const order = {
+        custName: 'Budi',
+        custPhone: '081234567890',
+        custLocUrl: 'https://www.google.com/maps?q=-6.2,106.8',
+        custLat: -6.2,
+        custLng: 106.8,
+      };
+
+      const items = [
+        { serviceName: 'Cuci AC', acCapacity: '1 PK', unitCount: 1 },
+      ];
+
+      const url = buildWaLink(order, items, 15, '62811111111');
+      const encodedMessage = url.split('text=')[1];
+      const decodedMessage = decodeURIComponent(encodedMessage);
+
+      expect(decodedMessage).toContain('https://www.google.com/maps?q=-6.2,106.8');
+    });
+
     // Concrete unit tests
     test('concrete examples for buildWaLink including special characters encoding', () => {
       const order = {

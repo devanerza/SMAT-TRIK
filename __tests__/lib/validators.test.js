@@ -240,6 +240,43 @@ describe('Validator Functions and Correctness Properties Suite', () => {
       );
     });
 
+    test('validateCustomerInfo accepts valid customer info with optional custLat/custLng', () => {
+      expect(validateCustomerInfo({
+        custName: 'John Doe',
+        custPhone: '081234567890',
+        custLocUrl: 'https://maps.google.com/?q=-6.2,106.8',
+        custLat: -6.2,
+        custLng: 106.8,
+      })).toEqual({
+        isValid: true,
+        errors: {}
+      });
+    });
+
+    test('validateCustomerInfo rejects invalid custLat', () => {
+      expect(validateCustomerInfo({
+        custName: 'John Doe',
+        custPhone: '081234567890',
+        custLocUrl: 'https://maps.google.com/?q=loc',
+        custLat: 100,
+      })).toEqual({
+        isValid: false,
+        errors: { custLat: 'Latitude tidak valid' }
+      });
+    });
+
+    test('validateCustomerInfo rejects invalid custLng', () => {
+      expect(validateCustomerInfo({
+        custName: 'John Doe',
+        custPhone: '081234567890',
+        custLocUrl: 'https://maps.google.com/?q=loc',
+        custLng: -200,
+      })).toEqual({
+        isValid: false,
+        errors: { custLng: 'Longitude tidak valid' }
+      });
+    });
+
     // Unit tests
     test('concrete examples for validateCustomerInfo', () => {
       // Valid
