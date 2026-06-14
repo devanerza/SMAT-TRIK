@@ -19,34 +19,23 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'ID pengguna diperlukan' });
   }
 
-  const { name, phone, role, email } = req.body;
-  const updates = {};
-
-  if (name !== undefined) updates.name = name;
-  if (phone !== undefined) updates.phone = phone;
-  if (role !== undefined) updates.role = role;
-
-  if (Object.keys(updates).length === 0) {
+  const { name, phone, email } = req.body;
+  if (!name && !phone && !email) {
     return res.status(400).json({ error: 'Tidak ada field yang diupdate' });
   }
 
-  if (email) {
-    const { error: emailError } = await supabaseAdmin.auth.admin.updateUserById(id, { email });
-    if (emailError) {
-      return res.status(500).json({ error: 'Gagal memperbarui email' });
-    }
+  const userUpdates = {};
+  if (email) userUpdates.email = email;
+  if (name !== undefined || phone !== undefined) {
+    userUpdates.user_metadata = {};
+    if (name !== undefined) userUpdates.user_metadata.name = name;
+    if (phone !== undefined) userUpdates.user_metadata.phone = phone;
   }
 
-  const { data: detail, error } = await supabaseAdmin
-    .from('user_details')
-    .update(updates)
-    .eq('id', id)
-    .select()
-    .single();
-
-  if (error || !detail) {
-    return res.status(404).json({ error: 'Pengguna tidak ditemukan' });
+  const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(id, userUpdates);
+  if (updateError) {
+    return res.status(500).json({ error: 'Gagal memperbarui pengguna' });
   }
 
-  return res.status(200).json(detail);
+  return res.status(200).json({ id, name, phone, email });
 }

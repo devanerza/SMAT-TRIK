@@ -72,11 +72,17 @@ function AdminTeamsPage() {
     if (form.phone) updates.phone = form.phone.trim();
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const token = session?.access_token;
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
       const res = await fetch(`/api/users/${id}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(updates),
       });
+      console.log(res)
       if (res.ok) {
         setEditingId(null);
         setForm({ email: '', password: '', name: '', phone: '' });

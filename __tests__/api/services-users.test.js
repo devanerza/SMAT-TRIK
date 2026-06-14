@@ -6,6 +6,7 @@ jest.mock('../../lib/supabaseAdmin', () => ({
         createUser: jest.fn(),
         updateUserById: jest.fn(),
         deleteUser: jest.fn(),
+        listUsers: jest.fn(),
       },
     },
     from: jest.fn(),
@@ -196,9 +197,13 @@ describe('GET /api/users', () => {
 
     const { supabaseAdmin } = require('../../lib/supabaseAdmin');
     supabaseAdmin.from.mockReturnValue(makeChain({
-      data: [{ id: 'u1', name: 'Teknisi 1', role: 'teknisi' }],
+      data: [{ user_id: 'u1' }],
       error: null,
     }));
+    supabaseAdmin.auth.admin.listUsers.mockResolvedValue({
+      data: { users: [{ id: 'u1', email: 'teknisi@example.com', user_metadata: { name: 'Teknisi 1' } }] },
+      error: null,
+    });
 
     const handler = require('../../pages/api/users/index').default;
     const { req, res } = createMockReqRes('GET');
@@ -215,20 +220,16 @@ describe('POST /api/users', () => {
 
     const { supabaseAdmin } = require('../../lib/supabaseAdmin');
     supabaseAdmin.auth.admin.createUser.mockResolvedValue({
-      data: { user: { id: 'new-user-id' } },
+      data: { user: { id: 'new-user-id', email: 'teknisi@example.com' } },
       error: null,
     });
-    supabaseAdmin.from.mockReturnValue(makeChain({
-      data: { id: 'new-user-id', name: 'New Teknisi', role: 'teknisi' },
-      error: null,
-    }));
 
     const handler = require('../../pages/api/users/index').default;
     const { req, res } = createMockReqRes('POST', {}, { email: 'teknisi@example.com', password: 'password123', name: 'New Teknisi' });
     await handler(req, res);
 
     expect(res._status).toBe(201);
-    expect(res._json.role).toBe('teknisi');
+    expect(res._json.user.id).toBe('new-user-id');
   });
 
   test('returns 400 when email/password missing', async () => {
@@ -247,16 +248,17 @@ describe('PATCH /api/users/[id]', () => {
     authenticateUser.mockResolvedValue({ user: { id: 'admin-1', role: 'admin' }, error: null });
 
     const { supabaseAdmin } = require('../../lib/supabaseAdmin');
-    supabaseAdmin.from.mockReturnValue(makeChain({
-      data: { id: 'user-id', name: 'Updated Name', role: 'teknisi' },
+    supabaseAdmin.auth.admin.updateUserById.mockResolvedValue({
+      data: { user: { id: 'user-id' } },
       error: null,
-    }));
+    });
 
     const handler = require('../../pages/api/users/[id]').default;
     const { req, res } = createMockReqRes('PATCH', { id: 'user-id' }, { name: 'Updated Name' });
     await handler(req, res);
 
     expect(res._status).toBe(200);
+    expect(res._json.id).toBe('user-id');
     expect(res._json.name).toBe('Updated Name');
   });
 });
