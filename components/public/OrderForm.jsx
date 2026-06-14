@@ -13,6 +13,12 @@ const capacityOptions = [
   { value: '2.5 PK', label: '2.5 PK' },
 ];
 
+const REGION_CONFIG = {
+  Surabaya: { serviceCode: 'SUB/YK', adminPhone: '6281944104536' },
+  Yogyakarta: { serviceCode: 'SUB/YK', adminPhone: '6281944104536' },
+  Jakarta: { serviceCode: 'JAK', adminPhone: '6281944104536' },
+}
+
 const emptyItem = { serviceId: '', acCapacity: '', unitCount: 1 };
 
 export default function OrderForm({ services }) {
@@ -25,20 +31,40 @@ export default function OrderForm({ services }) {
     location: null
   });
   const [items, setItems] = useState([{ ...emptyItem }]);
+  const [region, setRegion] = useState('');
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(null);
 
+  // Filter service list by region
+  const filteredServices = region
+    ? services.filter((s) => s.region === REGION_CONFIG[region].serviceCode)
+    : [];
+
+  const allItemsFilled = items.every(
+    (item) => item.serviceId && item.acCapacity && item.unitCount >= 1
+  );
+
+  const canSubmit =
+    region &&
+    customer.custName.trim() &&
+    customer.custPhone.trim() &&
+    customer.location?.maps_link &&
+    allItemsFilled;
+
+  // Cust info
   const updateCustomer = (field, value) => {
     setCustomer({ ...customer, [field]: value });
   };
 
+  // Order item
   const updateItem = (index, field, value) => {
     const updated = items.map((item, i) =>
       i === index ? { ...item, [field]: value } : item
     );
     setItems(updated);
   };
+
 
   const addItem = () => {
     setItems([...items, { ...emptyItem }]);
@@ -49,14 +75,24 @@ export default function OrderForm({ services }) {
     setItems(items.filter((_, i) => i !== index));
   };
 
+  // Submit order
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
     setSuccess(null);
 
+    const payloadCustomer = {
+      custName: customer.custName,
+      custPhone: customer.custPhone,
+      custEmail: customer.custEmail,
+      custLocUrl: customer.location?.maps_link || '',
+      custLat: customer.location?.lat || null,
+      custLng: customer.location?.lng || null,
+    };
+
     const newErrors = {};
 
-    const customerResult = validateCustomerInfo(customer);
+    const customerResult = validateCustomerInfo(payloadCustomer);
     if (!customerResult.isValid) {
       Object.assign(newErrors, customerResult.errors);
     }
@@ -83,7 +119,7 @@ export default function OrderForm({ services }) {
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerInfo: customer, items }),
+        body: JSON.stringify({ customerInfo: payloadCustomer, items, region }),
       });
 
       const data = await res.json();
@@ -99,16 +135,11 @@ export default function OrderForm({ services }) {
         return;
       }
 
-      setSuccess({
-        message: 'Pesanan berhasil dibuat!',
-        waLink: data.waLink,
-      });
-
       if (data.waLink) {
         window.open(data.waLink, '_blank');
       }
 
-      setCustomer({ custName: '', custPhone: '', custEmail: '', custLocUrl: '' });
+      setCustomer({ custName: '', custPhone: '', custEmail: '', location: null });
       setItems([{ ...emptyItem }]);
     } catch {
       setErrors({ server: 'Gagal terhubung ke server' });
@@ -148,22 +179,6 @@ export default function OrderForm({ services }) {
         </div>
       </div>
 
-      {success && (
-        <div className="alert alert-success">
-          <span>{success.message}</span>
-          {success.waLink && (
-            <a
-              href={success.waLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link link-primary ml-2"
-            >
-              Buka WhatsApp
-            </a>
-          )}
-        </div>
-      )}
-
       {errors.quota && (
         <div className="alert alert-error text-sm">
           <span>{errors.quota}</span>
@@ -175,6 +190,28 @@ export default function OrderForm({ services }) {
           <span>{errors.server}</span>
         </div>
       )}
+
+      <div className="card bg-base-100 border border-base-300">
+        <div className="card-body">
+          <h2 className="card-title text-lg">Pilih Region</h2>
+          <div className="flex gap-2 flex-wrap">
+            {['Surabaya', 'Yogyakarta', 'Jakarta'].map((r) => (
+              <button
+                key={r}
+                type="button"
+                className={`btn btn-sm ${
+                  region === r
+                    ? 'bg-orange-500 text-white hover:bg-orange-600 border-none'
+                    : 'btn-outline text-orange-500 hover:bg-orange-600 hover:text-white hover:border-none'
+                }`}
+                onClick={() => setRegion(r)}
+              >
+                {r}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="card bg-base-100 border border-base-300">
         <div className="card-body">
@@ -272,7 +309,7 @@ export default function OrderForm({ services }) {
                     onChange={(e) => updateItem(index, 'serviceId', e.target.value)}
                   >
                     <option value="">Pilih Layanan</option>
-                    {services.map((svc) => (
+                    {filteredServices.map((svc) => (
                       <option key={svc.id} value={svc.id}>
                         {svc.name}
                       </option>
@@ -331,7 +368,7 @@ export default function OrderForm({ services }) {
       <button
         type="submit"
         className="btn bg-orange-500 hover:bg-orange-600 text-white w-full"
-        disabled={submitting || remainingUnits <= 0}
+        disabled={submitting || remainingUnits <= 0 || !canSubmit}
       >
         {submitting ? (
           <span className="loading loading-spinner loading-sm" />

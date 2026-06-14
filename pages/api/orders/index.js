@@ -5,7 +5,12 @@ import { calculateDailyUsedUnits, checkQuotaAvailability } from '../../../lib/qu
 import { buildWaLink } from '../../../lib/waLink';
 
 const MAX_UNITS = 20;
-const ADMIN_PHONE = process.env.ADMIN_PHONE || '6281944104536';
+
+const ADMIN_PHONES = {
+  Surabaya: process.env.ADMIN_PHONE_SUB || '6281944104536',
+  Yogyakarta: process.env.ADMIN_PHONE_YK || '6281944104536',
+  Jakarta: process.env.ADMIN_PHONE_JAK || '6281944104536',
+};
 
 export default async function handler(req, res) {
   try {
@@ -64,7 +69,7 @@ async function handleCreateOrder(req, res) {
     return res.status(400).json({ error: 'Request body is required' });
   }
 
-  const { customerInfo, items } = body;
+  const { customerInfo, items, region } = body;
 
   const customerValidation = validateCustomerInfo(customerInfo);
   if (!customerValidation.isValid) {
@@ -149,6 +154,8 @@ async function handleCreateOrder(req, res) {
     return res.status(500).json({ error: 'Gagal menyimpan item order' });
   }
 
+  const adminPhone = ADMIN_PHONES[region] || ADMIN_PHONES.Surabaya;
+
   const waLink = buildWaLink(
     {
       custName: customerInfo.custName,
@@ -159,7 +166,7 @@ async function handleCreateOrder(req, res) {
     },
     items,
     remainingUnits,
-    ADMIN_PHONE
+    adminPhone
   );
 
   return res.status(201).json({
