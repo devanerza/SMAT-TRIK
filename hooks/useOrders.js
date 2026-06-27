@@ -22,7 +22,7 @@ export function useOrders({ status, startDate, endDate } = {}) {
       const res = await fetch(`/api/orders?${params.toString()}`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
-      
+
       if (!res.ok) {
         throw new Error('Gagal mengambil data pesanan');
       }
@@ -45,6 +45,9 @@ export function useOrders({ status, startDate, endDate } = {}) {
     fetchOrders();
   }, [fetchOrders]);
 
+  const fetchOrdersRef = useRef(fetchOrders);
+  fetchOrdersRef.current = fetchOrders;
+
   useEffect(() => {
     const channel = supabase
       .channel('orders-realtime')
@@ -52,7 +55,7 @@ export function useOrders({ status, startDate, endDate } = {}) {
         'postgres_changes',
         { event: '*', schema: 'public', table: 'orders' },
         () => {
-          fetchOrders();
+          fetchOrdersRef.current();
         }
       )
       .subscribe();
@@ -61,7 +64,7 @@ export function useOrders({ status, startDate, endDate } = {}) {
       mountedRef.current = false;
       supabase.removeChannel(channel);
     };
-  }, [fetchOrders]);
+  }, []);
 
   return { orders, loading, error, refetch: fetchOrders };
 }

@@ -60,6 +60,26 @@ async function handleGetOrders(req, res) {
     return res.status(500).json({ error: 'Failed to fetch orders' });
   }
 
+  if (orders && orders.length > 0) {
+    const teamIds = [...new Set(orders.map(o => o.team_id).filter(Boolean))];
+    if (teamIds.length > 0) {
+      const results = await Promise.all(
+        teamIds.map(tid =>
+          supabaseAdmin.auth.admin.getUserById(tid).then(r => ({ id: tid, data: r.data }))
+        )
+      );
+      const nameMap = {};
+      for (const { id, data } of results) {
+        nameMap[id] = data?.user?.user_metadata?.name || null;
+      }
+      for (const order of orders) {
+        if (order.team_id) {
+          order.team_name = nameMap[order.team_id] || null;
+        }
+      }
+    }
+  }
+
   return res.status(200).json(orders || []);
 }
 

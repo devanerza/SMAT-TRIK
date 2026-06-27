@@ -4,6 +4,9 @@ jest.mock('../../lib/supabaseAdmin', () => ({
   supabaseAdmin: {
     auth: {
       getUser: jest.fn(),
+      admin: {
+        getUserById: jest.fn(),
+      },
     },
     from: jest.fn(),
   },
@@ -242,6 +245,10 @@ describe('API Route: GET /api/orders', () => {
     authenticateUser.mockResolvedValue({ user: { id: 'teknisi-1', role: 'teknisi' }, error: null });
     const { supabaseAdmin } = require('../../lib/supabaseAdmin');
     supabaseAdmin.from.mockReturnValue(makeChain({ data: [{ id: 1, team_id: 'teknisi-1' }], error: null }));
+    supabaseAdmin.auth.admin.getUserById.mockResolvedValue({
+      data: { user: { id: 'teknisi-1', user_metadata: { name: 'Teknisi 1' } } },
+      error: null,
+    });
 
     const handler = require('../../pages/api/orders/index').default;
     const { req, res } = createMockReqRes('GET');

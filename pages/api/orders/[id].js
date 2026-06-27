@@ -43,7 +43,13 @@ async function handleGetOrder(req, res, id) {
     return res.status(403).json({ error: 'Akses ditolak' });
   }
 
-  return res.status(200).json(order);
+  let team_name = null;
+  if (order.team_id) {
+    const { data: teamUser } = await supabaseAdmin.auth.admin.getUserById(order.team_id);
+    team_name = teamUser?.user?.user_metadata?.name || null;
+  }
+
+  return res.status(200).json({ ...order, team_name });
 }
 
 async function handlePatchOrder(req, res, id) {
