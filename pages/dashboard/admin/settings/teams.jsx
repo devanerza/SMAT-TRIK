@@ -2,8 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import ProtectedRoute from '../../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../../components/shared/DashboardLayout';
+import { useToast } from '../../../../components/shared/Toast';
 
 function AdminTeamsPage() {
+  const toast = useToast();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
@@ -59,10 +61,10 @@ function AdminTeamsPage() {
         fetchTeams();
       } else {
         const data = await res.json();
-        alert(data.error || 'Gagal menambahkan teknisi');
+        toast(data.error || 'Gagal menambahkan teknisi', 'error');
       }
     } catch {
-      alert('Gagal menambahkan teknisi');
+      toast('Gagal menambahkan teknisi', 'error');
     }
   };
 
@@ -89,10 +91,10 @@ function AdminTeamsPage() {
         fetchTeams();
       } else {
         const data = await res.json();
-        alert(data.error || 'Gagal mengupdate teknisi');
+        toast(data.error || 'Gagal mengupdate teknisi', 'error');
       }
     } catch {
-      alert('Gagal mengupdate teknisi');
+      toast('Gagal mengupdate teknisi', 'error');
     }
   };
 

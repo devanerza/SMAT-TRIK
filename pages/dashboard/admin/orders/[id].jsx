@@ -6,6 +6,7 @@ import DashboardLayout from '../../../../components/shared/DashboardLayout';
 import OrderDetail from '../../../../components/dashboard/OrderDetail';
 import AssignTeamModal from '../../../../components/dashboard/AssignTeamModal';
 import StatusUpdateModal from '../../../../components/dashboard/StatusUpdateModal';
+import { useToast } from '../../../../components/shared/Toast';
 
 const statusActions = [
   { label: 'Proses', status: 'Proses', color: 'info' },
@@ -15,6 +16,7 @@ const statusActions = [
 
 function AdminOrderDetailPage() {
   const router = useRouter();
+  const toast = useToast();
   const { id } = router.query;
   const [order, setOrder] = useState(null);
   const [teams, setTeams] = useState([]);
@@ -84,14 +86,14 @@ function AdminOrderDetailPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        alert(data.error || 'Gagal menetapkan tim');
+        toast(data.error || 'Gagal menetapkan tim', 'error');
         return;
       }
       const updated = await res.json();
       setOrder(updated);
       setShowAssignModal(false);
     } catch {
-      alert('Gagal menetapkan tim');
+      toast('Gagal menetapkan tim', 'error');
     }
   };
 
@@ -113,7 +115,7 @@ function AdminOrderDetailPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        alert(data.error || 'Gagal memperbarui status');
+        toast(data.error || 'Gagal memperbarui status', 'error');
         return;
       }
       const updated = await res.json();
@@ -121,7 +123,7 @@ function AdminOrderDetailPage() {
       setShowStatusModal(false);
       setPendingStatus(null);
     } catch {
-      alert('Gagal memperbarui status');
+      toast('Gagal memperbarui status', 'error');
     }
   };
 

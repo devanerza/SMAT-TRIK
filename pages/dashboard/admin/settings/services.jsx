@@ -2,8 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import ProtectedRoute from '../../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../../components/shared/DashboardLayout';
+import { useToast } from '../../../../components/shared/Toast';
 
 function AdminServicesPage() {
+  const toast = useToast();
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
@@ -51,10 +53,10 @@ function AdminServicesPage() {
         fetchServices();
       } else {
         const data = await res.json();
-        alert(data.error || 'Gagal menambahkan layanan');
+        toast(data.error || 'Gagal menambahkan layanan', 'error');
       }
     } catch {
-      alert('Gagal menambahkan layanan');
+      toast('Gagal menambahkan layanan', 'error');
     }
   };
 
@@ -80,10 +82,10 @@ function AdminServicesPage() {
         fetchServices();
       } else {
         const data = await res.json();
-        alert(data.error || 'Gagal mengupdate layanan');
+        toast(data.error || 'Gagal mengupdate layanan', 'error');
       }
     } catch {
-      alert('Gagal mengupdate layanan');
+      toast('Gagal mengupdate layanan', 'error');
     }
   };
 

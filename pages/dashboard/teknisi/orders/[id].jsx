@@ -5,9 +5,11 @@ import ProtectedRoute from '../../../../components/shared/ProtectedRoute';
 import DashboardLayout from '../../../../components/shared/DashboardLayout';
 import OrderDetail from '../../../../components/dashboard/OrderDetail';
 import StatusUpdateModal from '../../../../components/dashboard/StatusUpdateModal';
+import { useToast } from '../../../../components/shared/Toast';
 
 function TeknisiOrderDetailPage() {
   const router = useRouter();
+  const toast = useToast();
   const { id } = router.query;
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -56,14 +58,14 @@ function TeknisiOrderDetailPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        alert(data.error || 'Gagal memperbarui status');
+        toast(data.error || 'Gagal memperbarui status', 'error');
         return;
       }
       const updated = await res.json();
       setOrder(updated);
       setShowStatusModal(false);
     } catch {
-      alert('Gagal memperbarui status');
+      toast('Gagal memperbarui status', 'error');
     }
   };
 
