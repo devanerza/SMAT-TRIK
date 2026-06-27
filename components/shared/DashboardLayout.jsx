@@ -56,7 +56,7 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="min-h-screen flex bg-[#F9FAFB] text-slate-800 selection:bg-orange-500 selection:text-white">
-      <aside className="w-64 bg-white border-r border-slate-200 min-h-screen flex flex-col">
+      <aside className="fixed top-0 left-0 bottom-0 w-64 bg-white border-r border-slate-200 flex flex-col z-30">
         <div className="p-5 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-2">
             <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-orange-100">
@@ -121,7 +121,7 @@ export default function DashboardLayout({ children }) {
           </ul>
         </nav>
       </aside>
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-64">
         <header className="sticky top-0 z-40 bg-[#F9FAFB]/90 backdrop-blur-md border-b border-slate-100 px-6 h-16 flex items-center justify-end gap-4">
           <div className="flex items-center gap-3">
             <div className="text-sm font-medium text-slate-500">
