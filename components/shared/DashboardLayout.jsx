@@ -58,16 +58,9 @@ export default function DashboardLayout({ children }) {
     <div className="min-h-screen flex bg-[#F9FAFB] text-slate-800 selection:bg-orange-500 selection:text-white">
       <aside className="fixed top-0 left-0 bottom-0 w-64 bg-white border-r border-slate-200 flex flex-col z-30">
         <div className="p-5 border-b border-slate-100">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="relative flex items-center justify-center w-9 h-9 rounded-full bg-orange-100">
-              <svg className="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.32 11.32l.707-.707M12 12a3 3 0 100-6 3 3 0 000 6z" />
-              </svg>
-            </div>
-            <div>
-              <h2 className="text-lg font-extrabold tracking-tight text-slate-900 leading-tight">SMAT-TRIK</h2>
-              <p className="text-xs font-semibold text-slate-400 capitalize">{role}</p>
-            </div>
+          <Link href="/" className="flex items-center gap-3">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/smattrik_logo.webp" alt="SMAT-TRIK" className="h-9 w-auto" />
           </Link>
         </div>
         <nav className="flex-1 p-4">
