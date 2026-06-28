@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Layanan' },
+  { href: '/aplikasi', label: 'Aplikasi' },
   { href: '/simulator', label: 'Simulasi Penghematan' },
   { href: '/about', label: 'Tentang Kami' },
 ];
@@ -17,15 +17,9 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-[#F9FAFB]/90 backdrop-blur-md border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-orange-100">
-            <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.32 11.32l.707-.707M12 12a3 3 0 100-6 3 3 0 000 6z" />
-            </svg>
-          </div>
-          <span className="text-2xl font-extrabold tracking-tight text-slate-900">
-            SMAT-TRIK
-          </span>
+        <Link href="/" className="flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/smattrik_logo.webp" alt="SMAT-TRIK" className="h-10 w-auto" />
         </Link>
 
         {/* Desktop Nav Menu */}

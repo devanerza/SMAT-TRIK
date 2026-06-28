@@ -47,9 +47,9 @@ export default function Layout({ children }) {
                   Solutions
                 </h4>
                 <ul className="space-y-2.5 text-sm">
-                  <li><Link href="/services" className="hover:text-slate-900 transition-colors">Energy Solutions</Link></li>
-                  <li><Link href="/services" className="hover:text-slate-900 transition-colors">Maintenance Plans</Link></li>
-                  <li><Link href="/services" className="hover:text-slate-900 transition-colors">Freon Replacements</Link></li>
+                  <li><Link href="/aplikasi" className="hover:text-slate-900 transition-colors">Energy Solutions</Link></li>
+                  <li><Link href="/aplikasi" className="hover:text-slate-900 transition-colors">Maintenance Plans</Link></li>
+                  <li><Link href="/aplikasi" className="hover:text-slate-900 transition-colors">Freon Replacements</Link></li>
                 </ul>
               </div>
 
