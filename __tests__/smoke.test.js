@@ -11,13 +11,14 @@ describe('Smoke Test Suite', () => {
     );
   });
 
-  test('React Testing Library renders Home page with Tailwind primary color button', () => {
+  test('React Testing Library renders Home page with main headings', () => {
     render(<Home />);
-    const heading = screen.getByRole('heading', { name: /AC Maintenance/i });
-    expect(heading).toBeInTheDocument();
+    
+    // Check main logo or banner heading
+    const mainHeading = screen.getByRole('heading', { name: /Solusi Pendingin/i });
+    expect(mainHeading).toBeInTheDocument();
 
-    const button = screen.getByRole('button', { name: /Get Started/i });
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('btn-primary');
+    const ctaLink = screen.getByRole('link', { name: /Smat-trik Freon Hemat Energi/i });
+    expect(ctaLink).toBeInTheDocument();
   });
 });

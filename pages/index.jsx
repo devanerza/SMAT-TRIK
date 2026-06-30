@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Navbar from '@/components/public/Navbar';
-import { useState } from 'react';
 import Layout from '@/components/shared/Layout';
+import LogoMarquee from '@/components/public/LogoMarquee';
+import CountUp from '@/components/public/CountUp';
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
@@ -308,32 +307,108 @@ export default function Home() {
                   Mengapa Memilih SMAT-TRIK?
                 </h2>
               </div>
-              
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-8 text-center">
-                
+
+              <div className="lg:grid grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-8 sm:flex sm:flex-col text-center">
+
                 {/* Stat 1 */}
-                <div>
-                  <div className="text-4xl sm:text-5xl font-extrabold text-[#D97706] mb-2">500+</div>
+                <div className='mb-3 lg:m-0'>
+                  <div className="text-4xl font-extrabold text-[#D97706] mb-2">
+                    <CountUp end={500} />
+                  </div>
                   <div className="text-xs sm:text-sm font-semibold tracking-wider text-slate-400 uppercase">
-                    Klien Industri
+                    Pekerjaan Selesai
                   </div>
                 </div>
 
                 {/* Stat 2 */}
-                <div>
-                  <div className="text-4xl sm:text-5xl font-extrabold text-[#D97706] mb-2">15+</div>
+                <div className='mb-3 lg:m-0'>
+                  <div className="text-4xl font-extrabold text-[#D97706] mb-2">
+                    <CountUp end={190} />
+                  </div>
                   <div className="text-xs sm:text-sm font-semibold tracking-wider text-slate-400 uppercase">
-                    Tahun Pengalaman
+                    Partner Bisnis
                   </div>
                 </div>
 
                 {/* Stat 3 */}
-                <div>
-                  <div className="text-4xl sm:text-5xl font-extrabold text-[#D97706] mb-2">24/7</div>
+                <div className='mb-3 lg:m-0'>
+                  <div className="text-4xl font-extrabold text-[#D97706] mb-2">
+                    <CountUp end={1000} />
+                  </div>
                   <div className="text-xs sm:text-sm font-semibold tracking-wider text-slate-400 uppercase">
-                    Dukungan Teknis
+                    Pelanggan Puas
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* APLIKASI PREVIEW */}
+          <section className="py-16 md:py-20 bg-[#F3F4F6]/50">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-12">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+                  Aplikasi SMAT-TRIK
+                </h2>
+                <p className="text-slate-500 mt-2">
+                  Berbagai proyek yang telah berhasil diimplementasikan
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  {
+                    company: 'Science Techno Park UGM',
+                    location: 'Sleman, Yogyakarta',
+                    capacity: '35 PK',
+                    saving: '20%',
+                    image: '/aplikasi-smat-trik-STP-UGM-01-scaled.webp',
+                  },
+                  {
+                    company: 'BIMC Hospital Kuta Bali',
+                    location: 'Bali',
+                    capacity: '92,5 PK',
+                    saving: '26%',
+                    image: '/aplikasi-smat-trik-BIMC-KUTA-BALI-06.webp',
+                  },
+                  {
+                    company: 'Siloam Hospitals Bali',
+                    location: 'Bali',
+                    capacity: '734,3 PK',
+                    saving: '20%',
+                    image: '/Aplikasi-SMAT-TRIK-Siloam-Group-01.webp',
+                  },
+                ].map((project, i) => (
+                  <div key={i} className="group relative overflow-hidden rounded-2xl shadow-md bg-white">
+                    <div className="aspect-[4/3] overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={project.image}
+                        alt={project.company}
+                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                      />
+                    </div>
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-[#111827]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                      <div className="p-5 w-full">
+                        <h3 className="text-white font-bold text-lg mb-2">{project.company}</h3>
+                        <div className="space-y-1 text-sm text-slate-300">
+                          <div className="flex items-center gap-2">
+                            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            {project.location}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                            {project.capacity} &middot; Hemat {project.saving}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                 {/* Stat 4 */}
                 <div>
