@@ -6,6 +6,7 @@ const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'Tentang Kami' },
   { href: '/aplikasi', label: 'Proyek Aplikasi' },
+  { href: '/referensi', label: 'Referensi' },
   { href: '/simulator', label: 'Simulasi Penghematan' },
 ];
 
