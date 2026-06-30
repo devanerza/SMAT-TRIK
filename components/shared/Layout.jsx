@@ -14,16 +14,10 @@ export default function Layout({ children }) {
 
             {/* Footer Column 1: Logo and description */}
             <div className="lg:col-span-4 flex flex-col gap-4">
-              <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-orange-200">
-                  <svg className="w-5 h-5 text-orange-700" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.32 11.32l.707-.707M12 12a3 3 0 100-6 3 3 0 000 6z" />
-                  </svg>
-                </div>
-                <span className="text-xl font-extrabold text-slate-900 tracking-tight">
-                  SMAT-TRIK
-                </span>
-              </div>
+              <Link href="/" className="flex items-center gap-2 sm:gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/smattrik_logo.webp" alt="SMAT-TRIK" className="h-8 sm:h-10 w-auto transition-all duration-200" />
+              </Link>
               <p className="text-sm leading-relaxed text-slate-500">
                 Spesialis pendingin industri dan solusi energi HVAC terpercaya sejak 2002.
               </p>
