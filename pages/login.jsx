@@ -45,16 +45,12 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB] p-4 selection:bg-orange-500 selection:text-white">
       <div className="bg-white rounded-2xl shadow-lg border border-slate-100 max-w-sm w-full p-8">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 mb-4">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-full bg-orange-100">
-              <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.32 11.32l.707-.707M12 12a3 3 0 100-6 3 3 0 000 6z" />
-              </svg>
-            </div>
+        <div className="mb-8">
+          <Link href="/" >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/smattrik_logo.webp" alt="SMAT-TRIK" className="h-8 sm:h-10 w-auto transition-all duration-200" />
           </Link>
-          <h1 className="text-2xl font-extrabold text-slate-900">SMAT-TRIK</h1>
-          <p className="text-slate-500 text-sm mt-1 font-medium">Masuk ke dashboard</p>
+          <p className="text-slate-500 text-sm mt-1 ml-3 font-medium">Masuk ke dashboard</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
