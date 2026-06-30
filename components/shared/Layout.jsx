@@ -10,7 +10,7 @@ export default function Layout({ children }) {
       </main>
       <footer className="bg-[#E5E7EB] pt-16 pb-12 border-t border-slate-200 text-slate-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-9 gap-10 lg:gap-16 mb-16">
 
             {/* Footer Column 1: Logo and description */}
             <div className="lg:col-span-4 flex flex-col gap-4">
@@ -18,36 +18,24 @@ export default function Layout({ children }) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/smattrik_logo.webp" alt="SMAT-TRIK" className="h-8 sm:h-10 w-auto transition-all duration-200" />
               </Link>
-              <p className="text-sm leading-relaxed text-slate-500">
+              <p className="text-sm leading-relaxed pr-32 text-slate-500">
                 Spesialis pendingin industri dan solusi energi HVAC terpercaya sejak 2002.
               </p>
             </div>
 
-            {/* Column 2: Branches */}
-            <div className="lg:col-span-3">
-              <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-4">
-                Main Branches
-              </h4>
-              <ul className="space-y-2.5 text-sm">
-                <li>Jakarta Branch</li>
-                <li>Surabaya Branch</li>
-                <li>Yogyakarta Branch</li>
-              </ul>
-            </div>
-
-            {/* Column 3: Solutions */}
+            {/* Column 2: Solutions */}
             <div className="lg:col-span-3">
               <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-4">
                 Solutions
               </h4>
               <ul className="space-y-2.5 text-sm">
-                <li><Link href="/aplikasi" className="hover:text-slate-900 transition-colors">Energy Solutions</Link></li>
-                <li><Link href="/aplikasi" className="hover:text-slate-900 transition-colors">Maintenance Plans</Link></li>
+                <li><Link href="/simulator" className="hover:text-slate-900 transition-colors">Energy Solutions</Link></li>
+                <li><Link href="/order" className="hover:text-slate-900 transition-colors">Maintenance Plans</Link></li>
                 <li><Link href="/aplikasi" className="hover:text-slate-900 transition-colors">Freon Replacements</Link></li>
               </ul>
             </div>
 
-            {/* Column 4: Support */}
+            {/* Column 3: Support */}
             <div className="lg:col-span-2">
               <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider mb-4">
                 Support
