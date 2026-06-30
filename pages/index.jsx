@@ -64,16 +64,16 @@ export default function Home() {
                 </div>
 
                 {/* Right Column Image Grid / Graphic */}
-                <div className="lg:col-span-6 relative flex justify-center">
+                <div className="lg:col-span-6 relative justify-center hidden lg:flex">
                   {/* Hero Image Container */}
-                  <div className="relative w-full max-w-lg lg:max-w-none aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                  <div className="relative w-full h-80 max-w-lg lg:max-w-none aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src="/cooling_tower.png" 
-                      alt="Industrial Cooling Tower" 
-                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" 
+                    <img
+                      src="/Gemini_Generated_Image_ega15dega15dega1.webp"
+                      alt="Industrial Cooling Tower"
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                     />
-                    
+
                     {/* Overlay shadow / glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none"></div>
                   </div>
@@ -86,7 +86,7 @@ export default function Home() {
                       </svg>
                     </div>
                     <div>
-                      <div className="text-xl font-extrabold text-slate-900 leading-tight">35%</div>
+                      <div className="text-xl font-extrabold text-slate-900 leading-tight">20%</div>
                       <div className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Energy Savings Achieved</div>
                     </div>
                   </div>
@@ -111,7 +111,7 @@ export default function Home() {
 
               {/* Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                
+
                 {/* Card 1: Efisiensi Termal */}
                 <div className="bg-white rounded-3xl p-8 shadow-sm border border-slate-100 hover:shadow-md transition-shadow duration-300 flex flex-col justify-between min-h-[300px]">
                   <div>
@@ -131,11 +131,11 @@ export default function Home() {
                   {/* Progress bar info */}
                   <div className="mt-8 bg-slate-50 rounded-xl p-4 border border-slate-100">
                     <div className="flex justify-between items-center text-xs font-bold text-slate-600 mb-2">
-                      <span>Efficiency Rate</span>
-                      <span className="text-orange-600">25% Higher</span>
+                      <span>Energy Use</span>
+                      <span className="text-orange-600">20% Lower</span>
                     </div>
                     <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                      <div className="bg-gradient-to-r from-orange-500 to-orange-600 h-full rounded-full" style={{ width: '85%' }}></div>
+                      <div className="bg-gradient-to-r from-orange-500 to-orange-600 h-full rounded-full" style={{ width: '80%' }}></div>
                     </div>
                   </div>
                 </div>
@@ -174,7 +174,6 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-
               </div>
             </div>
           </section>
@@ -193,12 +192,12 @@ export default function Home() {
           <section className="py-20 md:py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                
+
                 {/* Left Column Image Grid (2x2) */}
                 <div className="lg:col-span-6 grid grid-cols-2 gap-4">
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/technician.png" alt="HVAC Technician" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                    <img src="/Gemini_Generated_Image_ega15dega15dega1.webp/" alt="HVAC Technician" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -206,11 +205,11 @@ export default function Home() {
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/server_cooling.png" alt="Server Cooling Corridor" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                    <img src="/Gemini_Generated_Image_ze52olze52olze52.webp" alt="Server Cooling Corridor" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/hvac_tools.png" alt="HVAC Maintenance Tools" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                    <img src="/Gemini_Generated_Image_qopvyjqopvyjqopv.webp" alt="HVAC Maintenance Tools" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                   </div>
                 </div>
 
@@ -219,14 +218,14 @@ export default function Home() {
                   <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 leading-tight mb-6">
                     Layanan Maintenance Professional
                   </h2>
-                  
+
                   <p className="text-base text-slate-600 leading-relaxed mb-10">
                     Kami menyediakan tim teknisi bersertifikat yang siap menangani perawatan rutin hingga perbaikan darurat untuk memastikan sistem HVAC Anda beroperasi pada efisiensi puncak.
                   </p>
 
                   {/* Features List with customized icons */}
                   <div className="space-y-6 w-full mb-10">
-                    
+
                     {/* Item 1 */}
                     <div className="flex gap-4">
                       <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center text-orange-600 shrink-0 shadow-sm">
@@ -281,8 +280,8 @@ export default function Home() {
 
                   </div>
 
-                  <Link 
-                    href="/order" 
+                  <Link
+                    href="/order"
                     className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 bg-[#111827] hover:bg-black text-white font-bold text-sm rounded-xl shadow-md transition-colors text-center"
                   >
                     Konsultasi Jadwal Maintenance
@@ -438,16 +437,16 @@ export default function Home() {
                   Hubungi tim ahli kami untuk audit energi sistem HVAC gratis dan penawaran khusus freon Smat-trik.
                 </p>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 shrink-0 w-full lg:w-auto">
-                <Link 
-                  href="/order" 
+                <Link
+                  href="/order"
                   className="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-bold text-base rounded-xl shadow hover:shadow-lg transition-shadow text-center"
                 >
                   Hubungi Kami
                 </Link>
-                <Link 
-                  href="/simulator" 
+                <Link
+                  href="/simulator"
                   className="inline-flex items-center justify-center px-8 py-4 border border-white text-white font-bold text-base rounded-xl hover:bg-white/10 transition-colors text-center"
                 >
                   Lihat Produk
