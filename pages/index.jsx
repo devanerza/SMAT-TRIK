@@ -11,6 +11,7 @@ export default function Home() {
       <Head>
         <title>Smat-trik - Solusi Pendingin Industri Efisien & Hemat Energi</title>
         <meta name="description" content="Spesialis pendingin industri dan solusi energi HVAC terpercaya. Dapatkan efisiensi energi maksimal dengan Smat-trik Freon." />
+        <link rel="icon" href="/public/favicon.ico" sizes="any" />
       </Head>
 
       <div className="min-h-screen bg-[#F9FAFB] text-slate-800 font-sans selection:bg-orange-500 selection:text-white">
