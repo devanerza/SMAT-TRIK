@@ -404,14 +404,25 @@ export default function Home() {
                       </div>
                     </div>
 
-                {/* Stat 4 */}
-                <div>
-                  <div className="text-4xl sm:text-5xl font-extrabold text-[#D97706] mb-2">100%</div>
-                  <div className="text-xs sm:text-sm font-semibold tracking-wider text-slate-400 uppercase">
-                    Jaminan Efisiensi
+                    <div className="absolute top-3 left-3">
+                      <span className="inline-block px-3 py-1 bg-orange-500 text-white text-xs font-bold rounded-full shadow">
+                        {project.saving}
+                      </span>
+                    </div>
                   </div>
-                </div>
+                ))}
+              </div>
 
+              <div className="text-center mt-10">
+                <Link
+                  href="/aplikasi"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#111827] hover:bg-black text-white font-bold text-sm rounded-xl shadow-md transition-colors"
+                >
+                  Lihat Semua Proyek
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
               </div>
             </div>
           </section>
