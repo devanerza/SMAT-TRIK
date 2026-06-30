@@ -48,7 +48,7 @@ export default function TentangKami() {
                 <div className="relative w-full h-80 max-w-lg lg:max-w-none aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/Gemini_Generated_Image_4mxywq4mxywq4mxy.webp"
+                    src="/tentang-kami-smat-trik.webp"
                     alt="SMAT-TRIK Cooling Solution"
                     className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                   />

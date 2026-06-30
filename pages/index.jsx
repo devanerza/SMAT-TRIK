@@ -18,7 +18,7 @@ export default function Home() {
 
         <Layout>
           {/* HERO SECTION */}
-          <section className="relative py-12 md:py-20 lg:py-15 overflow-hidden bg-cover bg-center bg-[url('/Gemini_Generated_Image_ega15dega15dega1.webp')] lg:bg-none">
+          <section className="relative py-12 md:py-20 lg:py-15 overflow-hidden bg-cover bg-center bg-[url('/hero-ac-hemat-energi.webp')] lg:bg-none">
             {/* Mobile semi-transparent background overlay to keep text readable */}
             <div className="absolute inset-0 bg-black/40 lg:hidden pointer-events-none" />
 
@@ -69,7 +69,7 @@ export default function Home() {
                   <div className="relative w-full h-80 max-w-lg lg:max-w-none aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/Gemini_Generated_Image_ega15dega15dega1.webp"
+                      src="/hero-ac-hemat-energi.webp"
                       alt="Industrial Cooling Tower"
                       className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                     />
@@ -197,7 +197,7 @@ export default function Home() {
                 <div className="lg:col-span-6 grid grid-cols-2 gap-4">
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/Gemini_Generated_Image_ega15dega15dega1.webp/" alt="HVAC Technician" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                    <img src="/hero-ac-hemat-energi.webp/" alt="HVAC Technician" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -205,11 +205,11 @@ export default function Home() {
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/Gemini_Generated_Image_ze52olze52olze52.webp" alt="Server Cooling Corridor" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                    <img src="/pendingin-server-rack.webp" alt="Server Cooling Corridor" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="aspect-square rounded-2xl overflow-hidden shadow-md">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/Gemini_Generated_Image_qopvyjqopvyjqopv.webp" alt="HVAC Maintenance Tools" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
+                    <img src="/alat-maintenance-hvac.webp" alt="HVAC Maintenance Tools" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                   </div>
                 </div>
 
