@@ -18,51 +18,45 @@ export default function Home() {
 
         <Layout>
           {/* HERO SECTION */}
-          <section className="relative py-12 md:py-20 lg:py-24 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <section className="relative py-12 md:py-20 lg:py-15 overflow-hidden bg-cover bg-center bg-[url('/Gemini_Generated_Image_ega15dega15dega1.webp')] lg:bg-none">
+            {/* Mobile semi-transparent background overlay to keep text readable */}
+            <div className="absolute inset-0 bg-black/40 lg:hidden pointer-events-none" />
+
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                
+
                 {/* Left Column Content */}
                 <div className="lg:col-span-6 flex flex-col items-start text-left">
-                  {/* Eco Friendly cooling badge */}
-                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-xs font-bold tracking-wider text-orange-700 uppercase mb-6">
-                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse"></span>
-                    Eco-friendly Cooling
-                  </div>
-                  
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1] mb-2">
-                    Solusi Pendingin
+                  <h1 className="text-4xl text-white font-extrabold tracking-tight lg:text-slate-900 leading-[1.1] mb-2">
+                    Spesialis Efisiensi Energi Listrik AC <span className='text-orange-600'>TERBAIK</span> di Indonesia
                   </h1>
-                  <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#8C3005] leading-[1.1] mb-6">
-                    Industri Efisien & Hemat Energi
-                  </h2>
-                  
-                  <p className="text-lg text-slate-600 leading-relaxed max-w-xl mb-10">
+
+                  <p className="text-sm lg:text-md text-white lg:text-slate-600 leading-relaxed max-w-xl mb-10">
                     Optimalkan kinerja sistem pendingin industri Anda dengan teknologi terbaru yang dirancang untuk performa maksimal dengan konsumsi energi minimal.
                   </p>
 
                   {/* Two Main Call-to-Actions */}
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 w-full sm:w-auto">
                     <div className="flex flex-col items-center">
-                      <Link 
-                        href="/order" 
-                        className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-[#8C3005] hover:bg-[#732704] text-white font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-center"
+                      <Link
+                        href="/order"
+                        className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-center"
                       >
                         Smat-trik Freon Hemat Energi
                       </Link>
-                      <span className="text-xs text-slate-400 mt-2 font-medium">
+                      <span className="text-xs text-slate-200 mt-2 font-medium">
                         *Aplikasi untuk Seluruh Indonesia
                       </span>
                     </div>
 
                     <div className="flex flex-col items-center">
-                      <Link 
-                        href="/order" 
+                      <Link
+                        href="/order"
                         className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold text-base rounded-xl shadow-sm hover:shadow transition-all duration-200 text-center"
                       >
                         Layanan Maintenance AC
                       </Link>
-                      <span className="text-xs text-slate-400 mt-2 font-medium">
+                      <span className="text-xs text-slate-200 mt-2 font-medium">
                         *Jakarta • Surabaya • Yogyakarta
                       </span>
                     </div>
