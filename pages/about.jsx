@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import Layout from '@/components/shared/Layout';
+import LogoMarquee from '@/components/public/LogoMarquee';
 
 const images = [
   '/SUCOFINDO-UJI-SMAT-TRIK_page-0001.webp',
@@ -55,6 +56,16 @@ export default function TentangKami() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* LOGO MARQUEE */}
+        <section className="bg-white py-16 md:py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 text-center mb-12">
+              Dipercaya Oleh
+            </h2>
+            <LogoMarquee />
           </div>
         </section>
 
