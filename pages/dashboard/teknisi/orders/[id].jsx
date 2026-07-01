@@ -53,7 +53,7 @@ function TeknisiOrderDetailPage() {
       
       const res = await fetch(`/api/orders/${orderId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({ action: 'update_status', status: newStatus }),
       });
       if (!res.ok) {
