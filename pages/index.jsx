@@ -40,12 +40,12 @@ export default function Home() {
                   <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 w-full sm:w-auto">
                     <div className="flex flex-col items-center">
                       <Link
-                        href="/order"
+                        href="/simulator"
                         className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold text-base rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-center"
                       >
                         Smat-trik Freon Hemat Energi
                       </Link>
-                      <span className="text-xs text-slate-200 mt-2 font-medium">
+                      <span className="text-xs text-slate-200 lg:text-slate-600 mt-2 font-medium">
                         *Aplikasi untuk Seluruh Indonesia
                       </span>
                     </div>
@@ -57,7 +57,7 @@ export default function Home() {
                       >
                         Layanan Maintenance AC
                       </Link>
-                      <span className="text-xs text-slate-200 mt-2 font-medium">
+                      <span className="text-xs text-slate-200 lg:text-slate-600 mt-2 font-medium">
                         *Jakarta • Surabaya • Yogyakarta
                       </span>
                     </div>
@@ -136,7 +136,7 @@ export default function Home() {
                       <span className="text-orange-600">20% Lower</span>
                     </div>
                     <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                      <div className="bg-gradient-to-r from-orange-500 to-orange-600 h-full rounded-full" style={{ width: '80%' }}></div>
+                      <div className="bg-gradient-to-r from-orange-600 to-orange-300 h-full rounded-full" style={{ width: '80%' }}></div>
                     </div>
                   </div>
                 </div>
