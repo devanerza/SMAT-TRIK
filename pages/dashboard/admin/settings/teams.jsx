@@ -121,10 +121,10 @@ function AdminTeamsPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Tim Teknisi</h1>
         <button
-          className="inline-flex items-center justify-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200"
+          className="inline-flex items-center justify-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-lg shadow-sm hover:shadow transition-all duration-200 w-full sm:w-auto"
           onClick={() => {
             setShowAddForm(!showAddForm);
             setEditingId(null);

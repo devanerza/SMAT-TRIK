@@ -81,13 +81,13 @@ function AdminAnalyticsPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Analytics</h1>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <div className="form-control">
             <input
               type="date"
-              className="input input-bordered input-sm bg-white border-slate-200 focus:border-orange-500 focus:ring-orange-500 rounded-lg text-sm"
+              className="input input-bordered input-sm bg-white border-slate-200 focus:border-orange-500 focus:ring-orange-500 rounded-lg text-sm w-full"
               value={dateStart}
               onChange={(e) => setDateStart(e.target.value)}
             />
@@ -95,7 +95,7 @@ function AdminAnalyticsPage() {
           <div className="form-control">
             <input
               type="date"
-              className="input input-bordered input-sm bg-white border-slate-200 focus:border-orange-500 focus:ring-orange-500 rounded-lg text-sm"
+              className="input input-bordered input-sm bg-white border-slate-200 focus:border-orange-500 focus:ring-orange-500 rounded-lg text-sm w-full"
               value={dateEnd}
               onChange={(e) => setDateEnd(e.target.value)}
             />
